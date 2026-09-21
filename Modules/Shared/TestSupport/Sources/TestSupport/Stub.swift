@@ -50,6 +50,7 @@ public func anyNSError() -> NSError { NSError(domain: "any", code: 0) }
 public func invalidJSON() -> Data { Data("invalid json".utf8) }
 public let okStatusCode = 200
 public let unauthorizedStatusCode = 401
+public let serverErrorStatusCode = 500
 
 public func anyHTTPURLResponse(statusCode: Int = okStatusCode) -> HTTPURLResponse {
     HTTPURLResponse(url: anyURL(), statusCode: statusCode, httpVersion: nil, headerFields: nil)!

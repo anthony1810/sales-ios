@@ -24,7 +24,10 @@ let package = Package(
             swiftSettings: swift6),
         .target(
             name: "LoginAPI",
-            dependencies: ["LoginFeature"],
+            dependencies: [
+                "LoginFeature",
+                .product(name: "Auth", package: "Auth"),
+            ],
             swiftSettings: swift6),
         .target(
             name: "LoginPresentation",
@@ -42,6 +45,7 @@ let package = Package(
                 "LoginAPI",
                 .product(name: "TestSupport", package: "TestSupport"),
             ],
+            resources: [.copy("Fixtures")],
             swiftSettings: swift6),
         .testTarget(
             name: "LoginPresentationTests",
