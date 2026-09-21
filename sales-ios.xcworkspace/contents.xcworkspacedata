@@ -4,6 +4,9 @@
    <FileRef
       location = "group:Modules/Login">
    </FileRef>
+   <FileRef
+      location = "group:Modules/ProductList">
+   </FileRef>
    <Group
       location = "container:"
       name = "Shared">
