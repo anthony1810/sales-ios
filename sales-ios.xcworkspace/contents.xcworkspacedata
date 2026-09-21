@@ -11,6 +11,9 @@
          location = "group:Modules/Shared/HTTPClient">
       </FileRef>
       <FileRef
+         location = "group:Modules/Shared/SharedPresentation">
+      </FileRef>
+      <FileRef
          location = "group:Modules/Shared/TestSupport">
       </FileRef>
    </Group>
