@@ -1,9 +1,7 @@
 import Foundation
 import Testing
 
-import Auth
-
-@testable import AuthLive
+@testable import Auth
 
 struct KeychainTokenStoreTests {
 
