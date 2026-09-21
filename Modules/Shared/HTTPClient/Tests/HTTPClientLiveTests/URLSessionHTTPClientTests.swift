@@ -37,6 +37,30 @@ import Testing
         #expect(receivedResponse.statusCode == response.statusCode)
     }
 
+    @Test func perform_transportError_throws() async {
+        URLProtocolStub.stub(data: nil, response: nil, error: anyNSError())
+        let sut = makeSUT()
+
+        await #expect(throws: Error.self) {
+            try await sut.perform(anyRequest())
+        }
+    }
+
+    @Test func perform_nonHTTPResponse_throwsUnexpectedValues() async {
+        let nonHTTP = URLResponse(
+            url: anyURL(),
+            mimeType: nil,
+            expectedContentLength: 0,
+            textEncodingName: nil
+        )
+        URLProtocolStub.stub(data: Data(), response: nonHTTP, error: nil)
+        let sut = makeSUT()
+
+        await #expect(throws: URLSessionHTTPClient.UnexpectedValuesRepresentation.self) {
+            try await sut.perform(anyRequest())
+        }
+    }
+
     // MARK: - Helpers
 
     private let leakTrackers = LockIsolated<[MemoryLeakTracker]>([])
