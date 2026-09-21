@@ -104,6 +104,37 @@ struct LoginViewModelTests {
         #expect(sut.errorMessage == nil)
     }
 
+    @Test func submit_overlappingSubmits_sendOneRequestAndSignalOnce() async {
+        await withMainSerialExecutor {
+            let gate = Gate()
+            let receivedCredentials = LockIsolated<[Credentials]>([])
+            let sut = makeSUT(login: { credentials in
+                receivedCredentials.withValue { $0.append(credentials) }
+                await gate.wait()
+            })
+            sut.username = "any-username"
+            sut.password = "any-password"
+            let successCount = LockIsolated(0)
+            sut.onSuccess = { successCount.withValue { $0 += 1 } }
+
+            let firstSubmit = Task { await sut.submit() }
+            await Task.megaYield()
+            let secondSubmit = Task { await sut.submit() }
+            await Task.megaYield()
+            gate.open()
+            await firstSubmit.value
+            await secondSubmit.value
+
+            #expect(
+                receivedCredentials.value == [
+                    Credentials(username: "any-username", password: "any-password")
+                ]
+            )
+            #expect(successCount.value == 1)
+            #expect(sut.isLoading == false)
+        }
+    }
+
     @Test func submit_runningLogin_reportsLoading() async {
         await withMainSerialExecutor {
             let gate = Gate()

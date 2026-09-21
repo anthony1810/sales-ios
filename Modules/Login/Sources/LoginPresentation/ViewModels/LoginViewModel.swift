@@ -25,6 +25,7 @@ public final class LoginViewModel {
     public var canSubmit: Bool { !username.isEmpty && !password.isEmpty }
 
     public func submit() async {
+        guard !isLoading else { return }
         isLoading = true
         errorMessage = nil
         do {
