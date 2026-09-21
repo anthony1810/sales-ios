@@ -23,8 +23,12 @@ public final class Stub<Output: Sendable>: Sendable {
     }
 
     public func call() async throws -> Output {
-        await gate.value?.wait()
-        gate.setValue(nil)
+        let held = gate.withValue { current in
+            let taken = current
+            current = nil
+            return taken
+        }
+        await held?.wait()
         return try result.value.evaluate()
     }
 }
