@@ -47,6 +47,37 @@ struct LoadableViewModelTests {
         }
     }
 
+    @Test func load_overlappingLoads_keepOnlyTheLatestResult() async {
+        await withMainSerialExecutor {
+            let firstCallGate = Gate()
+            let calls = LockIsolated(0)
+            let sut = LoadableViewModel<Int, String>(
+                loader: {
+                    let call = calls.withValue { count in
+                        count += 1
+                        return count
+                    }
+                    if call == 1 {
+                        await firstCallGate.wait()
+                        return 1
+                    }
+                    return 2
+                },
+                map: { ["row-\($0)"] }
+            )
+
+            let staleLoad = Task { await sut.load() }
+            await Task.megaYield()
+            let freshLoad = Task { await sut.load() }
+            await freshLoad.value
+            firstCallGate.open()
+            await staleLoad.value
+
+            #expect(sut.rows == ["row-2"])
+            #expect(sut.isLoading == false)
+        }
+    }
+
     // MARK: - Helpers
 
     private func makeSUT() -> (sut: LoadableViewModel<Int, String>, resource: Stub<Int>) {
