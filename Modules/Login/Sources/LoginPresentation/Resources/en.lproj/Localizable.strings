@@ -1,1 +1,5 @@
+"LOGIN_TITLE" = "Log in";
+"LOGIN_USERNAME_PLACEHOLDER" = "Username";
+"LOGIN_PASSWORD_PLACEHOLDER" = "Password";
+"LOGIN_SUBMIT_BUTTON" = "Log in";
 "LOGIN_GENERIC_ERROR" = "Login failed. Please try again.";

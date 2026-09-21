@@ -1,1 +1,5 @@
+"LOGIN_TITLE" = "Đăng nhập";
+"LOGIN_USERNAME_PLACEHOLDER" = "Tên đăng nhập";
+"LOGIN_PASSWORD_PLACEHOLDER" = "Mật khẩu";
+"LOGIN_SUBMIT_BUTTON" = "Đăng nhập";
 "LOGIN_GENERIC_ERROR" = "Đăng nhập thất bại. Vui lòng thử lại.";

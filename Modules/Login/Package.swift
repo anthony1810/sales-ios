@@ -11,6 +11,7 @@ let package = Package(
         .library(name: "LoginFeature", targets: ["LoginFeature"]),
         .library(name: "LoginAPI", targets: ["LoginAPI"]),
         .library(name: "LoginPresentation", targets: ["LoginPresentation"]),
+        .library(name: "LoginUI", targets: ["LoginUI"]),
     ],
     dependencies: [
         .package(path: "../Shared/Auth"),
@@ -35,6 +36,10 @@ let package = Package(
             dependencies: ["LoginFeature"],
             resources: [.process("Resources")],
             swiftSettings: swift6),
+        .target(
+            name: "LoginUI",
+            dependencies: ["LoginPresentation"],
+            swiftSettings: swift6),
         .testTarget(
             name: "LoginFeatureTests",
             dependencies: [
@@ -54,6 +59,14 @@ let package = Package(
             name: "LoginPresentationTests",
             dependencies: [
                 "LoginPresentation",
+                .product(name: "TestSupport", package: "TestSupport"),
+            ],
+            swiftSettings: swift6),
+        .testTarget(
+            name: "LoginUITests",
+            dependencies: [
+                "LoginUI",
+                "LoginFeature",
                 .product(name: "TestSupport", package: "TestSupport"),
             ],
             swiftSettings: swift6),

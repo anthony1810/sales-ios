@@ -10,6 +10,10 @@ public final class LoginViewModel {
     public private(set) var errorMessage: String?
     public var onSuccess: (@MainActor () -> Void)?
 
+    public static var title: String { Localized.string("LOGIN_TITLE") }
+    public static var usernamePlaceholder: String { Localized.string("LOGIN_USERNAME_PLACEHOLDER") }
+    public static var passwordPlaceholder: String { Localized.string("LOGIN_PASSWORD_PLACEHOLDER") }
+    public static var submitButtonTitle: String { Localized.string("LOGIN_SUBMIT_BUTTON") }
     public static var genericErrorMessage: String { Localized.string("LOGIN_GENERIC_ERROR") }
 
     private let login: @Sendable (Credentials) async throws -> Void
