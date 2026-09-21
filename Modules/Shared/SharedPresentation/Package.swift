@@ -5,6 +5,7 @@ let swift6: [SwiftSetting] = [.swiftLanguageMode(.v6)]
 
 let package = Package(
     name: "SharedPresentation",
+    defaultLocalization: "en",
     platforms: [.iOS(.v17), .macOS(.v14)],
     products: [
         .library(name: "SharedPresentation", targets: ["SharedPresentation"])
@@ -15,6 +16,10 @@ let package = Package(
     targets: [
         .target(
             name: "SharedPresentation",
+            resources: [
+                .copy("Resources/en.lproj"),
+                .copy("Resources/vi.lproj"),
+            ],
             swiftSettings: swift6),
         .testTarget(
             name: "SharedPresentationTests",

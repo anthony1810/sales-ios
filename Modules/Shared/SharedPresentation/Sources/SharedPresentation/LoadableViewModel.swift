@@ -7,7 +7,7 @@ public final class LoadableViewModel<Resource: Sendable, Row: Equatable> {
     public private(set) var rows: [Row] = []
     public private(set) var errorMessage: String?
 
-    public static var loadErrorMessage: String { "Something went wrong. Please try again." }
+    public static var loadErrorMessage: String { Localized.string("GENERIC_LOAD_ERROR") }
 
     private let loader: @Sendable () async throws -> Resource
     private let map: (Resource) -> [Row]
