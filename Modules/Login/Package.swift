@@ -8,6 +8,7 @@ let package = Package(
     platforms: [.iOS(.v17), .macOS(.v14)],
     products: [
         .library(name: "LoginFeature", targets: ["LoginFeature"]),
+        .library(name: "LoginAPI", targets: ["LoginAPI"]),
         .library(name: "LoginPresentation", targets: ["LoginPresentation"]),
     ],
     dependencies: [
@@ -22,12 +23,23 @@ let package = Package(
             ],
             swiftSettings: swift6),
         .target(
+            name: "LoginAPI",
+            dependencies: ["LoginFeature"],
+            swiftSettings: swift6),
+        .target(
             name: "LoginPresentation",
             swiftSettings: swift6),
         .testTarget(
             name: "LoginFeatureTests",
             dependencies: [
                 "LoginFeature",
+                .product(name: "TestSupport", package: "TestSupport"),
+            ],
+            swiftSettings: swift6),
+        .testTarget(
+            name: "LoginAPITests",
+            dependencies: [
+                "LoginAPI",
                 .product(name: "TestSupport", package: "TestSupport"),
             ],
             swiftSettings: swift6),
