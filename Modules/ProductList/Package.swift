@@ -36,6 +36,7 @@ let package = Package(
                 "ProductListTestSupport",
                 .product(name: "TestSupport", package: "TestSupport"),
             ],
+            resources: [.copy("Fixtures")],
             swiftSettings: swift6),
         .testTarget(
             name: "ProductListFeatureTests",
