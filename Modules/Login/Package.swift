@@ -5,6 +5,7 @@ let swift6: [SwiftSetting] = [.swiftLanguageMode(.v6)]
 
 let package = Package(
     name: "Login",
+    defaultLocalization: "en",
     platforms: [.iOS(.v17), .macOS(.v14)],
     products: [
         .library(name: "LoginFeature", targets: ["LoginFeature"]),
@@ -31,6 +32,8 @@ let package = Package(
             swiftSettings: swift6),
         .target(
             name: "LoginPresentation",
+            dependencies: ["LoginFeature"],
+            resources: [.process("Resources")],
             swiftSettings: swift6),
         .testTarget(
             name: "LoginFeatureTests",
@@ -49,7 +52,10 @@ let package = Package(
             swiftSettings: swift6),
         .testTarget(
             name: "LoginPresentationTests",
-            dependencies: ["LoginPresentation"],
+            dependencies: [
+                "LoginPresentation",
+                .product(name: "TestSupport", package: "TestSupport"),
+            ],
             swiftSettings: swift6),
     ]
 )
