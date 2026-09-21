@@ -8,6 +8,7 @@ let package = Package(
     platforms: [.iOS(.v17), .macOS(.v14)],
     products: [
         .library(name: "ProductListFeature", targets: ["ProductListFeature"]),
+        .library(name: "ProductListAPI", targets: ["ProductListAPI"]),
         .library(name: "ProductListTestSupport", targets: ["ProductListTestSupport"]),
     ],
     dependencies: [
@@ -18,9 +19,21 @@ let package = Package(
             name: "ProductListFeature",
             swiftSettings: swift6),
         .target(
+            name: "ProductListAPI",
+            dependencies: ["ProductListFeature"],
+            swiftSettings: swift6),
+        .target(
             name: "ProductListTestSupport",
             dependencies: [
                 "ProductListFeature",
+                .product(name: "TestSupport", package: "TestSupport"),
+            ],
+            swiftSettings: swift6),
+        .testTarget(
+            name: "ProductListAPITests",
+            dependencies: [
+                "ProductListAPI",
+                "ProductListTestSupport",
                 .product(name: "TestSupport", package: "TestSupport"),
             ],
             swiftSettings: swift6),
