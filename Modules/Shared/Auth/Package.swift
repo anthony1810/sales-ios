@@ -11,11 +11,15 @@ let package = Package(
         .library(name: "AuthLive", targets: ["AuthLive"]),
     ],
     dependencies: [
-        .package(path: "../TestSupport")
+        .package(path: "../TestSupport"),
+        .package(path: "../HTTPClient"),
     ],
     targets: [
         .target(
             name: "Auth",
+            dependencies: [
+                .product(name: "HTTPClient", package: "HTTPClient")
+            ],
             swiftSettings: swift6),
         .target(
             name: "AuthLive",
