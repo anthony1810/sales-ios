@@ -5,6 +5,9 @@
       location = "container:"
       name = "Shared">
       <FileRef
+         location = "group:Modules/Shared/Auth">
+      </FileRef>
+      <FileRef
          location = "group:Modules/Shared/HTTPClient">
       </FileRef>
       <FileRef
