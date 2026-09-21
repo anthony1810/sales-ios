@@ -1,6 +1,11 @@
 import Auth
 
 public final class LoginUseCase: Sendable {
+    public enum Error: Swift.Error, Equatable {
+        case invalidCredentials(message: String)
+        case failed
+    }
+
     private let api: AuthAPI
     private let tokenStore: TokenStore
 
@@ -10,7 +15,14 @@ public final class LoginUseCase: Sendable {
     }
 
     public func login(_ credentials: Credentials) async throws {
-        let token = try await api.login(credentials)
+        let token: Token
+        do {
+            token = try await api.login(credentials)
+        } catch let error as Error {
+            throw error
+        } catch {
+            throw Error.failed
+        }
         try await tokenStore.store(token)
     }
 }
