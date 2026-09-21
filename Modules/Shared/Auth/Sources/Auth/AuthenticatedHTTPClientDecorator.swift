@@ -4,14 +4,21 @@ import HTTPClient
 public final class AuthenticatedHTTPClientDecorator: HTTPClient {
     public enum Error: Swift.Error {
         case notAuthenticated
+        case unauthorized
     }
 
     private let decoratee: any HTTPClient
     private let tokenStore: any TokenStore
+    private let onUnauthorized: @Sendable () -> Void
 
-    public init(decoratee: any HTTPClient, tokenStore: any TokenStore) {
+    public init(
+        decoratee: any HTTPClient,
+        tokenStore: any TokenStore,
+        onUnauthorized: @escaping @Sendable () -> Void
+    ) {
         self.decoratee = decoratee
         self.tokenStore = tokenStore
+        self.onUnauthorized = onUnauthorized
     }
 
     public func perform(_ request: URLRequest) async throws -> (Data, HTTPURLResponse) {
@@ -20,6 +27,13 @@ public final class AuthenticatedHTTPClientDecorator: HTTPClient {
         }
         var signed = request
         signed.setValue(token.value, forHTTPHeaderField: "Authorization")
-        return try await decoratee.perform(signed)
+        let (data, response) = try await decoratee.perform(signed)
+        guard response.statusCode != unauthorizedStatusCode else {
+            onUnauthorized()
+            throw Error.unauthorized
+        }
+        return (data, response)
     }
+
+    private let unauthorizedStatusCode = 401
 }

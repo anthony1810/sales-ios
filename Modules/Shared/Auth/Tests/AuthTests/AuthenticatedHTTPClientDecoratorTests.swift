@@ -34,16 +34,52 @@ struct AuthenticatedHTTPClientDecoratorTests {
         #expect(await client.receivedRequests.isEmpty)
     }
 
+    @Test func perform_a401Response_firesOnUnauthorizedAndThrows() async throws {
+        let unauthorizedFired = LockIsolated(false)
+        let (sut, client, tokenStore) = makeSUT(onUnauthorized: {
+            unauthorizedFired.setValue(true)
+        })
+        try await tokenStore.store(Token(value: "an-expired-token"))
+        await client.stub(
+            data: Data(),
+            response: anyHTTPURLResponse(statusCode: unauthorizedStatusCode)
+        )
+
+        await #expect(throws: AuthenticatedHTTPClientDecorator.Error.unauthorized) {
+            try await sut.perform(URLRequest(url: anyURL()))
+        }
+        #expect(unauthorizedFired.value == true)
+    }
+
+    @Test func perform_aSuccessfulResponse_neverFiresOnUnauthorized() async throws {
+        let unauthorizedFired = LockIsolated(false)
+        let (sut, client, tokenStore) = makeSUT(onUnauthorized: {
+            unauthorizedFired.setValue(true)
+        })
+        try await tokenStore.store(Token(value: "a-token"))
+        await client.stub(data: Data(), response: okHTTPURLResponse(for: anyURL()))
+
+        _ = try await sut.perform(URLRequest(url: anyURL()))
+
+        #expect(unauthorizedFired.value == false)
+    }
+
     // MARK: - Helpers
 
-    private func makeSUT() -> (
+    private func makeSUT(
+        onUnauthorized: @escaping @Sendable () -> Void = {}
+    ) -> (
         sut: AuthenticatedHTTPClientDecorator,
         client: HTTPClientSpy,
         tokenStore: InMemoryTokenStore
     ) {
         let client = HTTPClientSpy()
         let tokenStore = InMemoryTokenStore()
-        let sut = AuthenticatedHTTPClientDecorator(decoratee: client, tokenStore: tokenStore)
+        let sut = AuthenticatedHTTPClientDecorator(
+            decoratee: client,
+            tokenStore: tokenStore,
+            onUnauthorized: onUnauthorized
+        )
         return (sut, client, tokenStore)
     }
 }
