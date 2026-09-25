@@ -10,6 +10,7 @@ let package = Package(
     products: [
         .library(name: "ProductDetailFeature", targets: ["ProductDetailFeature"]),
         .library(name: "ProductDetailAPI", targets: ["ProductDetailAPI"]),
+        .library(name: "ProductDetailPresentation", targets: ["ProductDetailPresentation"]),
         .library(name: "ProductDetailTestSupport", targets: ["ProductDetailTestSupport"]),
     ],
     dependencies: [
@@ -22,6 +23,11 @@ let package = Package(
         .target(
             name: "ProductDetailAPI",
             dependencies: ["ProductDetailFeature"],
+            swiftSettings: swift6),
+        .target(
+            name: "ProductDetailPresentation",
+            dependencies: ["ProductDetailFeature"],
+            resources: [.process("Resources")],
             swiftSettings: swift6),
         .target(
             name: "ProductDetailTestSupport",
@@ -38,6 +44,14 @@ let package = Package(
                 .product(name: "TestSupport", package: "TestSupport"),
             ],
             resources: [.copy("Fixtures")],
+            swiftSettings: swift6),
+        .testTarget(
+            name: "ProductDetailPresentationTests",
+            dependencies: [
+                "ProductDetailPresentation",
+                "ProductDetailTestSupport",
+                .product(name: "TestSupport", package: "TestSupport"),
+            ],
             swiftSettings: swift6),
         .testTarget(
             name: "ProductDetailFeatureTests",
