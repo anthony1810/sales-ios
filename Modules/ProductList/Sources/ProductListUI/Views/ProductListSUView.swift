@@ -9,31 +9,30 @@ public struct ProductListSUView: View {
     }
 
     public var body: some View {
-        List(viewModel.rows) { row in
-            HStack {
-                Text(row.name)
-                Spacer()
-                Text(row.salesCountText)
+        List {
+            if let message = viewModel.errorMessage, viewModel.rows.isEmpty == false {
+                Text(message)
+                    .font(.footnote)
                     .foregroundStyle(.secondary)
             }
+            ForEach(viewModel.rows) { row in
+                HStack {
+                    Text(row.name)
+                    Spacer()
+                    Text(row.salesCountText)
+                        .foregroundStyle(.secondary)
+                }
+            }
         }
-        .overlay { emptyState }
-        .overlay { errorState }
+        .overlay { placeholder }
         .navigationTitle(ProductListViewModel.screenTitle)
         .task { await viewModel.load() }
         .refreshable { await viewModel.load() }
     }
 
-    @ViewBuilder private var emptyState: some View {
-        if viewModel.rows.isEmpty, viewModel.errorMessage == nil, viewModel.isLoading == false {
-            Text(ProductListViewModel.emptyMessage)
-                .foregroundStyle(.secondary)
-        }
-    }
-
-    @ViewBuilder private var errorState: some View {
-        if let message = viewModel.errorMessage {
-            Text(message)
+    @ViewBuilder private var placeholder: some View {
+        if viewModel.rows.isEmpty, viewModel.isLoading == false {
+            Text(viewModel.errorMessage ?? ProductListViewModel.emptyMessage)
                 .multilineTextAlignment(.center)
                 .foregroundStyle(.secondary)
                 .padding()

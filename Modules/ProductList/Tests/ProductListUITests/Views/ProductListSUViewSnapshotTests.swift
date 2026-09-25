@@ -34,7 +34,29 @@
             assert(view, style: style, testName: "error")
         }
 
+        @Test(arguments: [UIUserInterfaceStyle.light, .dark])
+        func refreshFailure_matchesTheReference(style: UIUserInterfaceStyle) async {
+            let summaries = screenFillingSummaries
+            let calls = LockIsolated(0)
+            let view = await makeView(refreshes: 1) {
+                let call = calls.withValue { count in
+                    count += 1
+                    return count
+                }
+                if call == 1 { return summaries }
+                throw anyNSError()
+            }
+
+            assert(view, style: style, testName: "refreshFailure")
+        }
+
         // MARK: - Helpers
+
+        private var screenFillingSummaries: [ProductSummary] {
+            (1...14).map { index in
+                makeSummary(id: UUID(index), name: "Product \(index)", salesCount: index)
+            }
+        }
 
         private var sampleSummaries: [ProductSummary] {
             [
@@ -46,10 +68,13 @@
         }
 
         private func makeView(
+            refreshes: Int = 0,
             loadSummaries: @escaping @Sendable () async throws -> [ProductSummary]
         ) async -> AnyView {
             let viewModel = ProductListViewModel.productList(loadSummaries: loadSummaries)
-            await viewModel.load()
+            for _ in 0...refreshes {
+                await viewModel.load()
+            }
             return AnyView(
                 NavigationStack { ProductListSUView(viewModel: viewModel) }
                     .transaction { $0.animation = nil }
