@@ -31,6 +31,21 @@ struct LoadableViewModelTests {
         #expect(sut.isLoading == false)
     }
 
+    @Test func load_failingLoaderWithAnInjectedMessage_showsThatMessage() async {
+        let screenMessage = "This screen could not load."
+        let (_, resource) = makeSUT()
+        resource.complete(with: .failure(anyNSError()))
+        let sut = LoadableViewModel<Int, String>(
+            loader: resource.call,
+            map: { ["row-\($0)"] },
+            failureMessage: screenMessage
+        )
+
+        await sut.load()
+
+        #expect(sut.errorMessage == screenMessage)
+    }
+
     @Test func load_runningLoader_reportsLoading() async {
         await withMainSerialExecutor {
             let (sut, resource) = makeSUT()

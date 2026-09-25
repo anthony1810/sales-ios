@@ -11,14 +11,17 @@ public final class LoadableViewModel<Resource: Sendable, Row: Equatable> {
 
     private let loader: @Sendable () async throws -> Resource
     private let map: (Resource) -> [Row]
+    private let failureMessage: String
     private var loadGeneration = 0
 
     public init(
         loader: @escaping @Sendable () async throws -> Resource,
-        map: @escaping (Resource) -> [Row]
+        map: @escaping (Resource) -> [Row],
+        failureMessage: String = LoadableViewModel.loadErrorMessage
     ) {
         self.loader = loader
         self.map = map
+        self.failureMessage = failureMessage
     }
 
     public func load() async {
@@ -32,7 +35,7 @@ public final class LoadableViewModel<Resource: Sendable, Row: Equatable> {
             rows = map(resource)
         } catch {
             guard generation == loadGeneration else { return }
-            errorMessage = Self.loadErrorMessage
+            errorMessage = failureMessage
         }
         isLoading = false
     }
