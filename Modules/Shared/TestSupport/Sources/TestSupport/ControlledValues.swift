@@ -8,8 +8,6 @@ extension UUID {
 
 extension Date {
     public static func fixture(_ iso8601: String) -> Date {
-        let formatter = ISO8601DateFormatter()
-        formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
-        return formatter.date(from: iso8601)!
+        try! Date(iso8601, strategy: ISO8601FormatStyle(includingFractionalSeconds: true))
     }
 }
