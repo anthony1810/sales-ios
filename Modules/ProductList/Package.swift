@@ -11,6 +11,7 @@ let package = Package(
         .library(name: "ProductListFeature", targets: ["ProductListFeature"]),
         .library(name: "ProductListAPI", targets: ["ProductListAPI"]),
         .library(name: "ProductListPresentation", targets: ["ProductListPresentation"]),
+        .library(name: "ProductListUI", targets: ["ProductListUI"]),
         .library(name: "ProductListTestSupport", targets: ["ProductListTestSupport"]),
     ],
     dependencies: [
@@ -34,6 +35,10 @@ let package = Package(
             resources: [.process("Resources")],
             swiftSettings: swift6),
         .target(
+            name: "ProductListUI",
+            dependencies: ["ProductListPresentation"],
+            swiftSettings: swift6),
+        .target(
             name: "ProductListTestSupport",
             dependencies: [
                 "ProductListFeature",
@@ -53,6 +58,14 @@ let package = Package(
             name: "ProductListPresentationTests",
             dependencies: [
                 "ProductListPresentation",
+                "ProductListTestSupport",
+                .product(name: "TestSupport", package: "TestSupport"),
+            ],
+            swiftSettings: swift6),
+        .testTarget(
+            name: "ProductListUITests",
+            dependencies: [
+                "ProductListUI",
                 "ProductListTestSupport",
                 .product(name: "TestSupport", package: "TestSupport"),
             ],
