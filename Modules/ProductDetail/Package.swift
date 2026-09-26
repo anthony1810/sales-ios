@@ -14,7 +14,8 @@ let package = Package(
         .library(name: "ProductDetailTestSupport", targets: ["ProductDetailTestSupport"]),
     ],
     dependencies: [
-        .package(path: "../Shared/TestSupport")
+        .package(path: "../Shared/TestSupport"),
+        .package(path: "../Shared/SharedPresentation"),
     ],
     targets: [
         .target(
@@ -26,7 +27,10 @@ let package = Package(
             swiftSettings: swift6),
         .target(
             name: "ProductDetailPresentation",
-            dependencies: ["ProductDetailFeature"],
+            dependencies: [
+                "ProductDetailFeature",
+                .product(name: "SharedPresentation", package: "SharedPresentation"),
+            ],
             resources: [.process("Resources")],
             swiftSettings: swift6),
         .target(
