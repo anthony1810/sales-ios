@@ -10,6 +10,11 @@ public struct ProductDetailSUView: View {
 
     public var body: some View {
         List {
+            if let message = viewModel.errorMessage, viewModel.viewData != nil {
+                Text(message)
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
+            }
             if let viewData = viewModel.viewData {
                 Section {
                     ForEach(viewData.rows) { row in

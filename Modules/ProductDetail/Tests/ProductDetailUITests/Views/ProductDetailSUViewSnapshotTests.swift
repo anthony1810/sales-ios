@@ -45,6 +45,22 @@
             assert(view, style: style, testName: "error")
         }
 
+        @Test(arguments: [UIUserInterfaceStyle.light, .dark])
+        func reloadFailure_matchesTheReference(style: UIUserInterfaceStyle) async {
+            let detail = convertedDetail
+            let calls = LockIsolated(0)
+            let view = await makeView(loads: 2) {
+                let call = calls.withValue { count in
+                    count += 1
+                    return count
+                }
+                if call == 1 { return detail }
+                throw anyNSError()
+            }
+
+            assert(view, style: style, testName: "reloadFailure")
+        }
+
         // MARK: - Helpers
 
         private var convertedDetail: ProductDetail {
@@ -84,6 +100,7 @@
         }
 
         private func makeView(
+            loads: Int = 1,
             loadDetail: @escaping @Sendable () async throws -> ProductDetail
         ) async -> AnyView {
             let viewModel = ProductDetailViewModel(
@@ -93,7 +110,9 @@
                         locale: Locale(identifier: "en_US"),
                         timeZone: TimeZone(identifier: "UTC")!),
                     money: MoneyFormatter(locale: Locale(identifier: "en_US"))))
-            await viewModel.load()
+            for _ in 0..<loads {
+                await viewModel.load()
+            }
             return AnyView(
                 NavigationStack { ProductDetailSUView(viewModel: viewModel) }
                     .transaction { $0.animation = nil })
