@@ -1,0 +1,98 @@
+name: SalesInUSD
+options:
+  bundleIdPrefix: com.anthony
+  deploymentTarget:
+    iOS: "17.0"
+  createIntermediateGroups: true
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    SWIFT_STRICT_CONCURRENCY: complete
+    IPHONEOS_DEPLOYMENT_TARGET: "17.0"
+    CODE_SIGN_STYLE: Automatic
+    SWIFT_TREAT_WARNINGS_AS_ERRORS: YES
+packages:
+  Login:
+    path: Modules/Login
+  ProductList:
+    path: Modules/ProductList
+  ProductDetail:
+    path: Modules/ProductDetail
+  Auth:
+    path: Modules/Shared/Auth
+  HTTPClient:
+    path: Modules/Shared/HTTPClient
+  SharedPresentation:
+    path: Modules/Shared/SharedPresentation
+  TestSupport:
+    path: Modules/Shared/TestSupport
+targets:
+  SalesInUSD:
+    type: application
+    platform: iOS
+    sources: [App]
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.anthony.salesinusd
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_UISupportedInterfaceOrientations: UIInterfaceOrientationPortrait
+    dependencies:
+      - package: Login
+        product: LoginFeature
+      - package: Login
+        product: LoginAPI
+      - package: Login
+        product: LoginPresentation
+      - package: Login
+        product: LoginUI
+      - package: ProductList
+        product: ProductListFeature
+      - package: ProductList
+        product: ProductListAPI
+      - package: ProductList
+        product: ProductListPresentation
+      - package: ProductList
+        product: ProductListUI
+      - package: ProductDetail
+        product: ProductDetailFeature
+      - package: ProductDetail
+        product: ProductDetailAPI
+      - package: ProductDetail
+        product: ProductDetailPresentation
+      - package: ProductDetail
+        product: ProductDetailUI
+      - package: Auth
+        product: Auth
+      - package: HTTPClient
+        product: HTTPClient
+      - package: HTTPClient
+        product: HTTPClientLive
+      - package: SharedPresentation
+        product: SharedPresentation
+  SalesInUSDTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources: [AppTests]
+    dependencies:
+      - target: SalesInUSD
+      - package: TestSupport
+        product: TestSupport
+      - package: ProductList
+        product: ProductListTestSupport
+      - package: ProductDetail
+        product: ProductDetailTestSupport
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+schemes:
+  SalesInUSD:
+    build:
+      targets:
+        SalesInUSD: all
+        SalesInUSDTests: [test]
+    test:
+      targets: [SalesInUSDTests]
+      gatherCoverageData: true
+    run:
+      config: Debug

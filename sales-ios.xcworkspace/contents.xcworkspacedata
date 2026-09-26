@@ -2,28 +2,35 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:Modules/Login">
-   </FileRef>
-   <FileRef
-      location = "group:Modules/ProductDetail">
-   </FileRef>
-   <FileRef
-      location = "group:Modules/ProductList">
+      location = "group:SalesInUSD.xcodeproj">
    </FileRef>
    <Group
       location = "container:"
-      name = "Shared">
+      name = "Modules">
       <FileRef
-         location = "group:Modules/Shared/Auth">
+         location = "group:Modules/Login">
       </FileRef>
       <FileRef
-         location = "group:Modules/Shared/HTTPClient">
+         location = "group:Modules/ProductList">
       </FileRef>
       <FileRef
-         location = "group:Modules/Shared/SharedPresentation">
+         location = "group:Modules/ProductDetail">
       </FileRef>
-      <FileRef
-         location = "group:Modules/Shared/TestSupport">
-      </FileRef>
+      <Group
+         location = "container:"
+         name = "Shared">
+         <FileRef
+            location = "group:Modules/Shared/Auth">
+         </FileRef>
+         <FileRef
+            location = "group:Modules/Shared/HTTPClient">
+         </FileRef>
+         <FileRef
+            location = "group:Modules/Shared/SharedPresentation">
+         </FileRef>
+         <FileRef
+            location = "group:Modules/Shared/TestSupport">
+         </FileRef>
+      </Group>
    </Group>
 </Workspace>
