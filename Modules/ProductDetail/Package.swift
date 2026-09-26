@@ -11,6 +11,7 @@ let package = Package(
         .library(name: "ProductDetailFeature", targets: ["ProductDetailFeature"]),
         .library(name: "ProductDetailAPI", targets: ["ProductDetailAPI"]),
         .library(name: "ProductDetailPresentation", targets: ["ProductDetailPresentation"]),
+        .library(name: "ProductDetailUI", targets: ["ProductDetailUI"]),
         .library(name: "ProductDetailTestSupport", targets: ["ProductDetailTestSupport"]),
     ],
     dependencies: [
@@ -34,6 +35,10 @@ let package = Package(
             resources: [.process("Resources")],
             swiftSettings: swift6),
         .target(
+            name: "ProductDetailUI",
+            dependencies: ["ProductDetailPresentation"],
+            swiftSettings: swift6),
+        .target(
             name: "ProductDetailTestSupport",
             dependencies: [
                 "ProductDetailFeature",
@@ -53,6 +58,14 @@ let package = Package(
             name: "ProductDetailPresentationTests",
             dependencies: [
                 "ProductDetailPresentation",
+                "ProductDetailTestSupport",
+                .product(name: "TestSupport", package: "TestSupport"),
+            ],
+            swiftSettings: swift6),
+        .testTarget(
+            name: "ProductDetailUITests",
+            dependencies: [
+                "ProductDetailUI",
                 "ProductDetailTestSupport",
                 .product(name: "TestSupport", package: "TestSupport"),
             ],

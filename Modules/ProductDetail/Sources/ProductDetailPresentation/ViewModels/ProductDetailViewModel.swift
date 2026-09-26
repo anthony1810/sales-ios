@@ -9,6 +9,7 @@ public final class ProductDetailViewModel {
     public private(set) var viewData: ProductDetailViewData?
 
     public static var loadErrorMessage: String { Localized.string("PRODUCT_DETAIL_LOAD_ERROR") }
+    public static var emptyMessage: String { Localized.string("PRODUCT_DETAIL_EMPTY") }
 
     private let loadDetail: @Sendable () async throws -> ProductDetail
     private let mapper: ProductDetailViewMapper
