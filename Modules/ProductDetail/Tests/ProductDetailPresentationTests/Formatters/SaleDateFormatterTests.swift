@@ -41,6 +41,16 @@ struct SaleDateFormatterTests {
         #expect(formatted == "Jan 2, 2030 at 10 am")
     }
 
+    @Test func string_aVietnameseReader_seesTheVietnamesePattern() {
+        let vietnameseMorning = "2 thg 1, 2030 lúc 11 SA"
+        let sut = SaleDateFormatter(
+            locale: Locale(identifier: "vi_VN"), timeZone: TimeZone(identifier: "UTC")!)
+
+        let formatted = sut.string(from: Date.fixture("2030-01-02T11:00:00.000Z"))
+
+        #expect(formatted == vietnameseMorning)
+    }
+
     // MARK: - Helpers
 
     private func makeSUT(timeZone: TimeZone = TimeZone(identifier: "UTC")!) -> SaleDateFormatter {

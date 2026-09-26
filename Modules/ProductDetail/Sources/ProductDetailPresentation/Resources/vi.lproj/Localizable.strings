@@ -3,3 +3,6 @@
 "PRODUCT_DETAIL_USD_UNAVAILABLE" = "Không có tỷ giá USD";
 "PRODUCT_DETAIL_LOAD_ERROR" = "Không tải được danh sách bán hàng. Vui lòng thử lại.";
 "PRODUCT_DETAIL_EMPTY" = "Chưa có lượt bán nào.";
+"SALE_DATE_FORMAT" = "d MMM, yyyy 'lúc' h a";
+"SALE_DATE_AM" = "SA";
+"SALE_DATE_PM" = "CH";
