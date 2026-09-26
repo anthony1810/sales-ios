@@ -1,3 +1,4 @@
 "PRODUCT_DETAIL_TITLE" = "Doanh số";
 "PRODUCT_DETAIL_USD_SYMBOL" = "US$";
 "PRODUCT_DETAIL_USD_UNAVAILABLE" = "Không có tỷ giá USD";
+"PRODUCT_DETAIL_LOAD_ERROR" = "Không tải được danh sách bán hàng. Vui lòng thử lại.";

@@ -1,3 +1,4 @@
 "PRODUCT_DETAIL_TITLE" = "Sales";
 "PRODUCT_DETAIL_USD_SYMBOL" = "US$";
 "PRODUCT_DETAIL_USD_UNAVAILABLE" = "USD unavailable";
+"PRODUCT_DETAIL_LOAD_ERROR" = "We could not load these sales. Please try again.";
