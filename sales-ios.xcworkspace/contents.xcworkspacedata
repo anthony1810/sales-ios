@@ -5,31 +5,31 @@
       location = "group:SalesInUSD.xcodeproj">
    </FileRef>
    <Group
-      location = "container:"
+      location = "group:Modules"
       name = "Modules">
       <FileRef
-         location = "group:Modules/Login">
+         location = "group:Login">
       </FileRef>
       <FileRef
-         location = "group:Modules/ProductList">
+         location = "group:ProductList">
       </FileRef>
       <FileRef
-         location = "group:Modules/ProductDetail">
+         location = "group:ProductDetail">
       </FileRef>
       <Group
-         location = "container:"
+         location = "group:Shared"
          name = "Shared">
          <FileRef
-            location = "group:Modules/Shared/Auth">
+            location = "group:Auth">
          </FileRef>
          <FileRef
-            location = "group:Modules/Shared/HTTPClient">
+            location = "group:HTTPClient">
          </FileRef>
          <FileRef
-            location = "group:Modules/Shared/SharedPresentation">
+            location = "group:SharedPresentation">
          </FileRef>
          <FileRef
-            location = "group:Modules/Shared/TestSupport">
+            location = "group:TestSupport">
          </FileRef>
       </Group>
    </Group>
