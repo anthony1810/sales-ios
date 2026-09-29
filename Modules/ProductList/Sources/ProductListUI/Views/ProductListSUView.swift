@@ -30,6 +30,7 @@ public struct ProductListSUView: View {
                         Text(row.salesCountText)
                             .foregroundStyle(.secondary)
                     }
+                    .contentShape(Rectangle())
                 }
                 .buttonStyle(.plain)
             }

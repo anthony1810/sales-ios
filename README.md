@@ -53,6 +53,12 @@ TEST_RUNNER_END_TO_END=1 TEST_RUNNER_RATES_BASE_URL=http://localhost:8080 \
 They are opt-in because a test that needs the network, a live account and a locally started server
 should never be the reason a normal run goes red.
 
+A **UI test** drives the real app the same way, under the same flag: it signs in, waits for the
+product list and opens a product. Add `-only-testing:SalesInUSDUITests` to run just that one. It
+found a bug the snapshots could not: a product row put `Text`, `Spacer`, `Text` in an `HStack`, so
+the middle of the row was empty space and did not respond to a tap. Only the text was tappable.
+`.contentShape(Rectangle())` fixed it.
+
 ## How it is put together
 
 ```

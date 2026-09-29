@@ -85,14 +85,24 @@ targets:
     settings:
       base:
         GENERATE_INFOPLIST_FILE: YES
+  SalesInUSDUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources: [AppUITests]
+    dependencies:
+      - target: SalesInUSD
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
 schemes:
   SalesInUSD:
     build:
       targets:
         SalesInUSD: all
         SalesInUSDTests: [test]
+        SalesInUSDUITests: [test]
     test:
-      targets: [SalesInUSDTests]
+      targets: [SalesInUSDTests, SalesInUSDUITests]
       gatherCoverageData: true
     run:
       config: Debug
