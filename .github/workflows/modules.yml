@@ -15,7 +15,7 @@ jobs:
       - uses: actions/checkout@v4
       - id: set
         run: |
-          mods=$(for d in Modules/*/*/; do
+          mods=$(for d in Modules/*/ Modules/*/*/; do
             if [ -f "$d/Package.swift" ] && grep -q '.testTarget' "$d/Package.swift"; then
               echo "${d%/}"
             fi

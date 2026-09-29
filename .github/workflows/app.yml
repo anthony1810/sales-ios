@@ -1,0 +1,39 @@
+name: CI-App
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install XcodeGen
+        run: brew install xcodegen
+
+      - name: Generate the project
+        run: xcodegen generate
+
+      - name: Pick a simulator
+        id: simulator
+        run: |
+          id=$(xcrun simctl list devices available --json \
+            | jq -r '.devices | to_entries
+                     | map(select(.key | test("iOS")))
+                     | map(.value[]) | map(select(.name | test("iPhone")))
+                     | last | .udid')
+          echo "Using simulator $id"
+          echo "id=$id" >> "$GITHUB_OUTPUT"
+
+      - name: Test the app
+        run: |
+          xcodebuild test \
+            -workspace sales-ios.xcworkspace \
+            -scheme SalesInUSD \
+            -destination "platform=iOS Simulator,id=${{ steps.simulator.outputs.id }}" \
+            -enableThreadSanitizer YES \
+            | xcbeautify || exit 1
