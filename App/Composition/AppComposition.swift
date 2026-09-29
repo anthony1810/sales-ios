@@ -49,6 +49,11 @@ final class AppComposition {
         )
     }
 
+    func start() async {
+        guard (try? await tokenStore.load()) != nil else { return }
+        router.signedIn()
+    }
+
     func makeLoginViewModel() -> LoginViewModel {
         let useCase = LoginUseCase(
             api: RemoteAuthAPI(client: httpClient, baseURL: backendURL),

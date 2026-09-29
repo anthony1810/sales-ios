@@ -11,6 +11,13 @@ struct RootView: View {
     var body: some View {
         @Bindable var router = composition.router
 
+        content(for: router)
+            .task { await composition.start() }
+    }
+
+    @ViewBuilder private func content(for router: AppRouter) -> some View {
+        @Bindable var router = router
+
         switch router.screen {
         case .login:
             LoginSUView(viewModel: composition.makeLoginViewModel())
