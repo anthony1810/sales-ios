@@ -27,6 +27,7 @@
 		404DC9AF620D7511D10B9C50 /* ProductDetailFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 7635FE9F0295B63ECC35C339 /* ProductDetailFeature */; };
 		5858096D71D833DA2B49E77B /* ProductListServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B823F508A32DFEE8E94A92F2 /* ProductListServiceTests.swift */; };
 		6637A555B5E3A0F0FEDB73AA /* ProductDetailService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9D75F496432E4B1B61B8F2 /* ProductDetailService.swift */; };
+		78E71F71579CEA7B5BEE4746 /* RealServicesEndToEndTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF88AA27FE42451124077A72 /* RealServicesEndToEndTests.swift */; };
 		792E073A58F4B407BB222964 /* ProductDetailPresentation in Frameworks */ = {isa = PBXBuildFile; productRef = F01940269499FCF30F0BDA50 /* ProductDetailPresentation */; };
 		8467200036CE38ADA17B5EA9 /* RemoteAuthAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 067A698E393A5135D64B9B9C /* RemoteAuthAPI.swift */; };
 		8516EA2A360756F7BF43B7F3 /* TestSupport in Frameworks */ = {isa = PBXBuildFile; productRef = BC793C2A52CA3CF2C0CBC6AA /* TestSupport */; };
@@ -81,6 +82,7 @@
 		B25075F2B5BC752F2784A89F /* RemoteAuthAPITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteAuthAPITests.swift; sourceTree = "<group>"; };
 		B823F508A32DFEE8E94A92F2 /* ProductListServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListServiceTests.swift; sourceTree = "<group>"; };
 		BB2AFCD3B90A928CF28EABC5 /* SharedPresentation */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SharedPresentation; path = Modules/Shared/SharedPresentation; sourceTree = SOURCE_ROOT; };
+		BF88AA27FE42451124077A72 /* RealServicesEndToEndTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealServicesEndToEndTests.swift; sourceTree = "<group>"; };
 		CADF86C29F9018E03FF6341B /* Login */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Login; path = Modules/Login; sourceTree = SOURCE_ROOT; };
 		CDD4E4BDEDF31824193160E5 /* AppRouterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRouterTests.swift; sourceTree = "<group>"; };
 		E1B69C463422465C6ADC5CD0 /* ServiceURLsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceURLsTests.swift; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				86E8D3A0A694548EA08B2B7A /* Composition */,
+				FCB4DB45CF39BB1BC88496B7 /* EndToEnd */,
 				AC3D3C0D93C743B7820A093E /* Helpers */,
 			);
 			path = AppTests;
@@ -195,6 +198,14 @@
 				65D34C31706238D1B050C9A2 /* SalesInUSDTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		FCB4DB45CF39BB1BC88496B7 /* EndToEnd */ = {
+			isa = PBXGroup;
+			children = (
+				BF88AA27FE42451124077A72 /* RealServicesEndToEndTests.swift */,
+			);
+			path = EndToEnd;
 			sourceTree = "<group>";
 		};
 		FDFFD233A0722D7EF30EFE3D /* Composition */ = {
@@ -329,6 +340,7 @@
 				B5496E0C263163431E8F13EC /* ProductDetailServiceTests.swift in Sources */,
 				5858096D71D833DA2B49E77B /* ProductListServiceTests.swift in Sources */,
 				992D266C53B220B2E78D363C /* ProductTranslationTests.swift in Sources */,
+				78E71F71579CEA7B5BEE4746 /* RealServicesEndToEndTests.swift in Sources */,
 				2B3291C6C988C2E5B5C81410 /* RemoteAuthAPITests.swift in Sources */,
 				3A05598F2DBB13F4839477D0 /* ServiceURLsTests.swift in Sources */,
 			);
