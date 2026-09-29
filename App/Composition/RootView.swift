@@ -20,11 +20,11 @@ struct RootView: View {
 
         switch router.screen {
         case .login:
-            LoginSUView(viewModel: composition.makeLoginViewModel())
+            LoginSUView(viewModel: composition.loginViewModel)
         case .productList:
             NavigationStack(path: $router.path) {
                 ProductListSUView(
-                    viewModel: composition.makeProductListViewModel(),
+                    viewModel: composition.productListViewModel,
                     onSelect: { row in
                         composition.router.showDetail(
                             of: ProductListFeature.Product(id: row.id, name: row.name)
@@ -35,7 +35,7 @@ struct RootView: View {
                         switch route {
                         case let .detail(product):
                             ProductDetailSUView(
-                                viewModel: composition.makeProductDetailViewModel(for: product)
+                                viewModel: composition.detailViewModel(for: product)
                             )
                         }
                     }

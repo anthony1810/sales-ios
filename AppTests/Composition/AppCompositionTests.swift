@@ -50,14 +50,14 @@ struct AppCompositionTests {
             )
             sut.router.signedIn()
 
-            await sut.makeProductListViewModel().load()
+            await sut.productListViewModel.load()
             await Task.megaYield()
 
             let remainingToken = try? await store.load()
             #expect(sut.router.screen == .login)
             #expect(sut.router.sessionDidExpire == true)
             #expect(remainingToken == nil)
-            #expect(sut.makeLoginViewModel().showsSessionExpired == true)
+            #expect(sut.loginViewModel.showsSessionExpired == true)
         }
     }
 

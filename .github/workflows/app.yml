@@ -31,9 +31,10 @@ jobs:
 
       - name: Test the app
         run: |
+          set -o pipefail
           xcodebuild test \
             -workspace sales-ios.xcworkspace \
             -scheme SalesInUSD \
             -destination "platform=iOS Simulator,id=${{ steps.simulator.outputs.id }}" \
             -enableThreadSanitizer YES \
-            | xcbeautify || exit 1
+            | xcbeautify

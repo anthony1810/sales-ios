@@ -46,10 +46,21 @@ final class AppComposition {
             onUnauthorized: { [weak self] in
                 Task { @MainActor in
                     try? await self?.tokenStore.clear()
-                    self?.router.sessionExpired()
+                    self?.sessionExpired()
                 }
             }
         )
+    }
+
+    private(set) lazy var loginViewModel: LoginViewModel = makeLoginViewModel()
+    private(set) lazy var productListViewModel: ProductListViewModel = makeProductListViewModel()
+    private var detailViewModels: [ProductListFeature.Product: ProductDetailViewModel] = [:]
+
+    func detailViewModel(for product: ProductListFeature.Product) -> ProductDetailViewModel {
+        if let existing = detailViewModels[product] { return existing }
+        let created = makeProductDetailViewModel(for: product)
+        detailViewModels[product] = created
+        return created
     }
 
     func start() async {
@@ -57,18 +68,17 @@ final class AppComposition {
         router.signedIn()
     }
 
-    func makeLoginViewModel() -> LoginViewModel {
+    private func makeLoginViewModel() -> LoginViewModel {
         let useCase = LoginUseCase(
             api: RemoteAuthAPI(client: httpClient, baseURL: backendURL),
             tokenStore: tokenStore
         )
         let viewModel = LoginViewModel(login: useCase.login)
-        viewModel.showsSessionExpired = router.sessionDidExpire
-        viewModel.onSuccess = { [weak router] in router?.signedIn() }
+        viewModel.onSuccess = { [weak self] in self?.signedIn() }
         return viewModel
     }
 
-    func makeProductListViewModel() -> ProductListViewModel {
+    private func makeProductListViewModel() -> ProductListViewModel {
         let service = ProductListService(
             loadProducts: loadProducts,
             loadSales: loadListSales
@@ -76,7 +86,7 @@ final class AppComposition {
         return ProductListViewModel.productList(loadSummaries: service.loadSummaries)
     }
 
-    func makeProductDetailViewModel(
+    private func makeProductDetailViewModel(
         for product: ProductListFeature.Product
     ) -> ProductDetailViewModel {
         let service = ProductDetailService(
@@ -91,6 +101,19 @@ final class AppComposition {
                 money: MoneyFormatter(locale: locale)
             )
         )
+    }
+
+    // MARK: - Session
+
+    private func signedIn() {
+        loginViewModel.showsSessionExpired = false
+        router.signedIn()
+    }
+
+    private func sessionExpired() {
+        detailViewModels.removeAll()
+        loginViewModel.showsSessionExpired = true
+        router.sessionExpired()
     }
 
     // MARK: - Loaders
