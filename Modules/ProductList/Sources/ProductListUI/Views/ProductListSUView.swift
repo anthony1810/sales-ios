@@ -3,9 +3,14 @@ import SwiftUI
 
 public struct ProductListSUView: View {
     private let viewModel: ProductListViewModel
+    private let onSelect: (ProductRow) -> Void
 
-    public init(viewModel: ProductListViewModel) {
+    public init(
+        viewModel: ProductListViewModel,
+        onSelect: @escaping (ProductRow) -> Void = { _ in }
+    ) {
         self.viewModel = viewModel
+        self.onSelect = onSelect
     }
 
     public var body: some View {
@@ -16,12 +21,17 @@ public struct ProductListSUView: View {
                     .foregroundStyle(.secondary)
             }
             ForEach(viewModel.rows) { row in
-                HStack {
-                    Text(row.name)
-                    Spacer()
-                    Text(row.salesCountText)
-                        .foregroundStyle(.secondary)
+                Button {
+                    onSelect(row)
+                } label: {
+                    HStack {
+                        Text(row.name)
+                        Spacer()
+                        Text(row.salesCountText)
+                            .foregroundStyle(.secondary)
+                    }
                 }
+                .buttonStyle(.plain)
             }
         }
         .overlay { placeholder }

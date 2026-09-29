@@ -4,7 +4,7 @@ import SwiftUI
 struct SalesInUSDApp: App {
     var body: some Scene {
         WindowGroup {
-            ProgressView()
+            RootView()
         }
     }
 }

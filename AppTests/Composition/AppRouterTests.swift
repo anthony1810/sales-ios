@@ -7,10 +7,41 @@ import Testing
 @MainActor
 struct AppRouterTests {
 
-    @Test func init_startsWithNothingPushed() {
+    @Test func init_startsAtLoginWithNothingPushed() {
         let sut = AppRouter()
 
+        #expect(sut.screen == .login)
         #expect(sut.path.isEmpty)
+        #expect(sut.sessionDidExpire == false)
+    }
+
+    @Test func signedIn_fromLogin_movesToTheProductList() {
+        let sut = AppRouter()
+
+        sut.signedIn()
+
+        #expect(sut.screen == .productList)
+    }
+
+    @Test func sessionExpired_whileViewingADetail_returnsToLoginAndClearsThePath() {
+        let sut = AppRouter()
+        sut.signedIn()
+        sut.showDetail(of: Product(id: UUID(1), name: "Mac mini"))
+
+        sut.sessionExpired()
+
+        #expect(sut.screen == .login)
+        #expect(sut.path.isEmpty)
+        #expect(sut.sessionDidExpire == true)
+    }
+
+    @Test func signedIn_afterASessionExpired_clearsTheExpiryNotice() {
+        let sut = AppRouter()
+        sut.sessionExpired()
+
+        sut.signedIn()
+
+        #expect(sut.sessionDidExpire == false)
     }
 
     @Test func showDetail_aProduct_pushesThatProductOntoThePath() {
