@@ -44,7 +44,10 @@ final class AppComposition {
             decoratee: httpClient,
             tokenStore: tokenStore,
             onUnauthorized: { [weak self] in
-                Task { @MainActor in self?.router.sessionExpired() }
+                Task { @MainActor in
+                    try? await self?.tokenStore.clear()
+                    self?.router.sessionExpired()
+                }
             }
         )
     }
@@ -60,6 +63,7 @@ final class AppComposition {
             tokenStore: tokenStore
         )
         let viewModel = LoginViewModel(login: useCase.login)
+        viewModel.showsSessionExpired = router.sessionDidExpire
         viewModel.onSuccess = { [weak router] in router?.signedIn() }
         return viewModel
     }

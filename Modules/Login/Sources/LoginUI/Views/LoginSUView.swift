@@ -21,6 +21,11 @@ public struct LoginSUView: View {
                 .loginFieldCapitalization()
             SecureField(LoginViewModel.passwordPlaceholder, text: $viewModel.password)
                 .textFieldStyle(.roundedBorder)
+            if viewModel.showsSessionExpired {
+                Text(LoginViewModel.sessionExpiredMessage)
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
+            }
             if let message = viewModel.errorMessage {
                 Text(message)
                     .font(.footnote)

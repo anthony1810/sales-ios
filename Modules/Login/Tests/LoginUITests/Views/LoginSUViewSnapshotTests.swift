@@ -58,6 +58,14 @@ import Testing
         assert(view, style: style, testName: "error")
     }
 
+    @Test(arguments: [UIUserInterfaceStyle.light, .dark])
+    func sessionExpired_matchesTheReference(style: UIUserInterfaceStyle) {
+        let (view, viewModel) = makeView()
+        viewModel.showsSessionExpired = true
+
+        assert(view, style: style, testName: "sessionExpired")
+    }
+
     // MARK: - Helpers
 
     private func makeView(

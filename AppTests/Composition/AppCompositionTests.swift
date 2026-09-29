@@ -1,4 +1,6 @@
 import Auth
+import Foundation
+import TestSupport
 import Testing
 
 @testable import SalesInUSD
@@ -30,6 +32,33 @@ struct AppCompositionTests {
         await sut.start()
 
         #expect(sut.router.screen == .login)
+    }
+
+    // MARK: - Relock
+
+    @Test func aRejectedRequest_clearsTheTokenAndReturnsToLoginWithANotice() async {
+        await withMainSerialExecutor {
+            let store = InMemoryTokenStore()
+            try? await store.store(Token(value: "an-expired-token"))
+            let sut = AppComposition(
+                environment: [:],
+                tokenStore: store,
+                httpClient: HTTPClientStub(
+                    data: Data(),
+                    response: anyHTTPURLResponse(statusCode: unauthorizedStatusCode)
+                )
+            )
+            sut.router.signedIn()
+
+            await sut.makeProductListViewModel().load()
+            await Task.megaYield()
+
+            let remainingToken = try? await store.load()
+            #expect(sut.router.screen == .login)
+            #expect(sut.router.sessionDidExpire == true)
+            #expect(remainingToken == nil)
+            #expect(sut.makeLoginViewModel().showsSessionExpired == true)
+        }
     }
 
     // MARK: - Helpers

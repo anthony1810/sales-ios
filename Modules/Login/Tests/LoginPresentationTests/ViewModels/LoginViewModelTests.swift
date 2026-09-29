@@ -152,6 +152,19 @@ struct LoginViewModelTests {
         }
     }
 
+    // MARK: - Session expired
+
+    @Test func showsSessionExpired_afterTheNextSubmit_isCleared() async {
+        let sut = makeSUT()
+        sut.showsSessionExpired = true
+        sut.username = "any-username"
+        sut.password = "any-password"
+
+        await sut.submit()
+
+        #expect(sut.showsSessionExpired == false)
+    }
+
     // MARK: - Helpers
 
     private func makeSUT(

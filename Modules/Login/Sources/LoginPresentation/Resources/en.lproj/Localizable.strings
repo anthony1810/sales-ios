@@ -3,3 +3,4 @@
 "LOGIN_PASSWORD_PLACEHOLDER" = "Password";
 "LOGIN_SUBMIT_BUTTON" = "Log in";
 "LOGIN_GENERIC_ERROR" = "Login failed. Please try again.";
+"LOGIN_SESSION_EXPIRED" = "Your session expired. Please log in again.";
