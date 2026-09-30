@@ -24,11 +24,14 @@ public struct ProductListSUView: View {
                 Button {
                     onSelect(row)
                 } label: {
-                    HStack {
+                    HStack(spacing: 8) {
                         Text(row.name)
                         Spacer()
                         Text(row.salesCountText)
                             .foregroundStyle(.secondary)
+                        Image(systemName: "chevron.right")
+                            .font(.footnote.weight(.semibold))
+                            .foregroundStyle(.tertiary)
                     }
                     .contentShape(Rectangle())
                 }
