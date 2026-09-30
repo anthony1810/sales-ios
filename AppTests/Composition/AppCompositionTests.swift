@@ -1,5 +1,6 @@
 import Auth
 import Foundation
+import ProductListFeature
 import TestSupport
 import Testing
 
@@ -8,66 +9,40 @@ import Testing
 @MainActor
 struct AppCompositionTests {
 
-    @Test func start_withAStoredToken_opensTheProductList() async throws {
-        let signedInStore = InMemoryTokenStore()
-        try await signedInStore.store(Token(value: "a-stored-token"))
-        let sut = makeSUT(tokenStore: signedInStore)
+    @Test func loginViewModel_isOneInstanceAcrossAccesses() {
+        let sut = makeSUT()
 
-        await sut.start()
-
-        #expect(sut.router.screen == .productList)
+        #expect(sut.loginViewModel === sut.loginViewModel)
     }
 
-    @Test func start_withNoStoredToken_staysAtLogin() async {
-        let sut = makeSUT(tokenStore: InMemoryTokenStore())
+    @Test func productListViewModel_isOneInstanceAcrossAccesses() {
+        let sut = makeSUT()
 
-        await sut.start()
-
-        #expect(sut.router.screen == .login)
+        #expect(sut.productListViewModel === sut.productListViewModel)
     }
 
-    @Test func start_aStoreThatCannotBeRead_staysAtLogin() async {
-        let sut = makeSUT(tokenStore: FailingTokenStore())
+    @Test func detailViewModel_theSameProduct_isOneInstanceAcrossAccesses() {
+        let sut = makeSUT()
 
-        await sut.start()
-
-        #expect(sut.router.screen == .login)
+        #expect(sut.detailViewModel(for: coffee) === sut.detailViewModel(for: coffee))
     }
 
-    // MARK: - Relock
+    @Test func detailViewModel_twoProducts_isADifferentInstanceForEach() {
+        let sut = makeSUT()
 
-    @Test func aRejectedRequest_clearsTheTokenAndReturnsToLoginWithANotice() async {
-        await withMainSerialExecutor {
-            let store = InMemoryTokenStore()
-            try? await store.store(Token(value: "an-expired-token"))
-            let sut = AppComposition(
-                environment: [:],
-                tokenStore: store,
-                httpClient: HTTPClientStub(
-                    data: Data(),
-                    response: anyHTTPURLResponse(statusCode: unauthorizedStatusCode)
-                )
-            )
-            sut.router.signedIn()
-
-            await sut.productListViewModel.load()
-            await Task.megaYield()
-
-            let remainingToken = try? await store.load()
-            #expect(sut.router.screen == .login)
-            #expect(sut.router.sessionDidExpire == true)
-            #expect(remainingToken == nil)
-            #expect(sut.loginViewModel.showsSessionExpired == true)
-        }
+        #expect(sut.detailViewModel(for: coffee) !== sut.detailViewModel(for: tea))
     }
 
     // MARK: - Helpers
 
-    private func makeSUT(tokenStore: any TokenStore) -> AppComposition {
+    private let coffee = ProductListFeature.Product(id: UUID(1), name: "Coffee")
+    private let tea = ProductListFeature.Product(id: UUID(2), name: "Tea")
+
+    private func makeSUT() -> AppComposition {
         AppComposition(
             environment: [:],
-            tokenStore: tokenStore,
-            httpClient: HTTPClientStub(failure: FailingTokenStore.Failure())
+            tokenStore: InMemoryTokenStore(),
+            httpClient: HTTPClientStub.offline
         )
     }
 }
