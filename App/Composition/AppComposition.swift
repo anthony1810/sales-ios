@@ -15,6 +15,8 @@ import SharedPresentation
 
 @MainActor
 final class AppComposition {
+    static let keychainService = "com.anthony.salesinusd"
+
     let router = AppRouter()
 
     private let backendURL: URL
@@ -23,11 +25,10 @@ final class AppComposition {
     private let timeZone: TimeZone
     private let tokenStore: any TokenStore
     private let httpClient: any HTTPClient
-    private var signedInClient: (any HTTPClient)!
 
     init(
         environment: [String: String] = ProcessInfo.processInfo.environment,
-        tokenStore: any TokenStore = KeychainTokenStore(service: "com.anthony.salesinusd"),
+        tokenStore: any TokenStore = KeychainTokenStore(service: AppComposition.keychainService),
         httpClient: any HTTPClient = URLSessionHTTPClient(
             session: URLSession(configuration: .ephemeral)
         ),
@@ -40,18 +41,9 @@ final class AppComposition {
         self.httpClient = httpClient
         self.locale = locale
         self.timeZone = timeZone
-        self.signedInClient = AuthenticatedHTTPClientDecorator(
-            decoratee: httpClient,
-            tokenStore: tokenStore,
-            onUnauthorized: { [weak self] in
-                Task { @MainActor in
-                    try? await self?.tokenStore.clear()
-                    self?.sessionExpired()
-                }
-            }
-        )
     }
 
+    private lazy var signedInClient: any HTTPClient = makeSignedInClient()
     private(set) lazy var loginViewModel: LoginViewModel = makeLoginViewModel()
     private(set) lazy var productListViewModel: ProductListViewModel = makeProductListViewModel()
     private var detailViewModels: [ProductListFeature.Product: ProductDetailViewModel] = [:]
@@ -66,6 +58,18 @@ final class AppComposition {
     func start() async {
         guard (try? await tokenStore.load()) != nil else { return }
         router.signedIn()
+    }
+
+    private func makeSignedInClient() -> any HTTPClient {
+        AuthenticatedHTTPClientDecorator(
+            decoratee: httpClient,
+            tokenStore: tokenStore,
+            onUnauthorized: { [weak self] in
+                Task { @MainActor in
+                    self?.sessionExpired()
+                }
+            }
+        )
     }
 
     private func makeLoginViewModel() -> LoginViewModel {
@@ -119,7 +123,7 @@ final class AppComposition {
     // MARK: - Loaders
 
     private var loadProducts: @Sendable () async throws -> [ProductListFeature.Product] {
-        let client = signedInClient!
+        let client = signedInClient
         let baseURL = backendURL
         return {
             let (data, response) = try await client.perform(
@@ -130,7 +134,7 @@ final class AppComposition {
     }
 
     private var loadListSales: @Sendable () async throws -> [ProductListFeature.Sale] {
-        let client = signedInClient!
+        let client = signedInClient
         let baseURL = backendURL
         return {
             let (data, response) = try await client.perform(
@@ -141,7 +145,7 @@ final class AppComposition {
     }
 
     private var loadDetailSales: @Sendable () async throws -> [ProductDetailFeature.Sale] {
-        let client = signedInClient!
+        let client = signedInClient
         let baseURL = backendURL
         return {
             let (data, response) = try await client.perform(

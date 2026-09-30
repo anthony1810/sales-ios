@@ -36,6 +36,7 @@ public struct ProductListSUView: View {
                     .contentShape(Rectangle())
                 }
                 .buttonStyle(.plain)
+                .accessibilityIdentifier("productList.row")
             }
         }
         .overlay { placeholder }
@@ -53,6 +54,7 @@ public struct ProductListSUView: View {
                     .multilineTextAlignment(.center)
                     .foregroundStyle(.secondary)
                     .padding()
+                    .accessibilityIdentifier("productList.placeholder")
             }
         }
     }

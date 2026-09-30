@@ -51,6 +51,21 @@ struct AuthenticatedHTTPClientDecoratorTests {
         #expect(unauthorizedFired.value == true)
     }
 
+    @Test func perform_a401Response_clearsTheStoredToken() async throws {
+        let (sut, client, tokenStore) = makeSUT()
+        try await tokenStore.store(Token(value: "an-expired-token"))
+        await client.stub(
+            data: Data(),
+            response: anyHTTPURLResponse(statusCode: unauthorizedStatusCode)
+        )
+
+        await #expect(throws: AuthenticatedHTTPClientDecorator.Error.unauthorized) {
+            try await sut.perform(URLRequest(url: anyURL()))
+        }
+        let remainingToken = try await tokenStore.load()
+        #expect(remainingToken == nil)
+    }
+
     @Test func perform_aSuccessfulResponse_neverFiresOnUnauthorized() async throws {
         let unauthorizedFired = LockIsolated(false)
         let (sut, client, tokenStore) = makeSUT(onUnauthorized: {

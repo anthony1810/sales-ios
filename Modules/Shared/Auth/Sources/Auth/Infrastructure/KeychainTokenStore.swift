@@ -37,6 +37,10 @@ public final class KeychainTokenStore: TokenStore {
     }
 
     public func clear() async throws {
+        try removeToken()
+    }
+
+    public func removeToken() throws {
         let status = SecItemDelete(baseQuery as CFDictionary)
         guard status == errSecSuccess || status == errSecItemNotFound else { throw Failure() }
     }

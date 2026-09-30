@@ -12,12 +12,11 @@ public enum SalesResponseMapper {
         else {
             throw Error.invalidData
         }
+        
         return try dtos.map { dto in
             guard let amount = Decimal(string: dto.amount),
-                let date = try? Date(dto.date, strategy: dateStrategy)
-            else {
-                throw Error.invalidData
-            }
+                  let date = try? Date(dto.date, strategy: dateStrategy) else { throw Error.invalidData }
+            
             return Sale(
                 productID: dto.product_id,
                 amount: Money(amount: amount, currencyCode: dto.currency_code),

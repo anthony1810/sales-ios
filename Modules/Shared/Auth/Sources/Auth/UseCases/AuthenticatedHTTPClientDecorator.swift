@@ -29,6 +29,7 @@ public final class AuthenticatedHTTPClientDecorator: HTTPClient {
         signed.setValue(token.value, forHTTPHeaderField: "Authorization")
         let (data, response) = try await decoratee.perform(signed)
         guard response.statusCode != unauthorizedStatusCode else {
+            try? await tokenStore.clear()
             onUnauthorized()
             throw Error.unauthorized
         }
