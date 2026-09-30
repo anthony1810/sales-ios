@@ -15,6 +15,8 @@ import SharedPresentation
 
 @MainActor
 final class AppComposition {
+    static let keychainService = "com.anthony.salesinusd"
+
     let router = AppRouter()
 
     private let backendURL: URL
@@ -26,7 +28,7 @@ final class AppComposition {
 
     init(
         environment: [String: String] = ProcessInfo.processInfo.environment,
-        tokenStore: any TokenStore = KeychainTokenStore(service: "com.anthony.salesinusd"),
+        tokenStore: any TokenStore = KeychainTokenStore(service: AppComposition.keychainService),
         httpClient: any HTTPClient = URLSessionHTTPClient(
             session: URLSession(configuration: .ephemeral)
         ),

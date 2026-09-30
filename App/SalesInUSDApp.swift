@@ -2,7 +2,7 @@ import SwiftUI
 
 @main
 struct SalesInUSDApp: App {
-    @State private var composition = AppComposition()
+    @State private var composition = AppComposition.launch()
 
     var body: some Scene {
         WindowGroup {
