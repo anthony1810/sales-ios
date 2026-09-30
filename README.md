@@ -15,31 +15,49 @@ direct-to-USD rate per currency. That repository has its own README.
 
 ## Run the app
 
-```bash
-git clone git@github.com:anthony1810/sales-ios.git
-cd sales-ios
-open sales-ios.xcworkspace
-```
+Start the middleware first, then the app.
 
-Select the `SalesInUSD` scheme and any iOS 17.0 or later simulator, then Run. Log in with the tester
-account from the challenge brief.
+1. Clone the middleware.
 
-The product list and the product detail work against the real backend with no further setup. The US
-dollar conversions need the middleware running:
+   ```bash
+   git clone git@github.com:anthony1810/sales-middleware.git
+   ```
 
-```bash
-cd ../sales-middleware && swift run --package-path Server      # serves http://localhost:8080
-```
+2. Go into it.
 
-Without it the detail screen still lists every sale with its own currency and date, and says "USD
-unavailable" instead of a converted figure. That is deliberate, not a failure state.
+   ```bash
+   cd sales-middleware
+   ```
 
-On a **physical device** `localhost` is the phone, not your Mac. Set an environment variable in the
-scheme, Product, Scheme, Edit Scheme, Run, Arguments:
+3. Start the server and leave it running. It serves `http://localhost:8080`.
 
-```
-RATES_BASE_URL = http://<your-mac-ip>:8080
-```
+   ```bash
+   swift run --package-path Server
+   ```
+
+4. In a second terminal, clone the app.
+
+   ```bash
+   git clone git@github.com:anthony1810/sales-ios.git
+   ```
+
+5. Go into it.
+
+   ```bash
+   cd sales-ios
+   ```
+
+6. Open the workspace. Pick the `SalesInUSD` scheme and any iOS 17.0 or later simulator, then Run.
+
+   ```bash
+   open sales-ios.xcworkspace
+   ```
+
+Log in with the tester account from the challenge brief.
+
+Without the middleware the app still runs. The detail screen lists every sale with its own currency
+and date, and says "USD unavailable" instead of a converted figure. That is deliberate, not a failure
+state.
 
 ## Architecture
 
