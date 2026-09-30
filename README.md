@@ -15,37 +15,60 @@ direct-to-USD rate per currency. That repository has its own README.
 
 ## Run the app
 
-```bash
-git clone git@github.com:anthony1810/sales-ios.git
-cd sales-ios
-open sales-ios.xcworkspace
-```
+Start the middleware first, then the app.
 
-Select the `SalesInUSD` scheme and any iOS 17.0 or later simulator, then Run. Log in with the tester
-account from the challenge brief.
+1. Clone the middleware.
 
-The product list and the product detail work against the real backend with no further setup. The US
-dollar conversions need the middleware running:
+   ```bash
+   git clone git@github.com:anthony1810/sales-middleware.git
+   ```
 
-```bash
-cd ../sales-middleware && swift run --package-path Server      # serves http://localhost:8080
-```
+2. Go into it.
 
-Without it the detail screen still lists every sale with its own currency and date, and says "USD
-unavailable" instead of a converted figure. That is deliberate, not a failure state.
+   ```bash
+   cd sales-middleware
+   ```
 
-On a **physical device** `localhost` is the phone, not your Mac. Set an environment variable in the
-scheme, Product, Scheme, Edit Scheme, Run, Arguments:
+3. Start the server and leave it running. It serves `http://localhost:8080`.
 
-```
-RATES_BASE_URL = http://<your-mac-ip>:8080
-```
+   ```bash
+   swift run --package-path Server
+   ```
+
+4. In a second terminal, clone the app.
+
+   ```bash
+   git clone git@github.com:anthony1810/sales-ios.git
+   ```
+
+5. Go into it.
+
+   ```bash
+   cd sales-ios
+   ```
+
+6. Open the workspace. Pick the `SalesInUSD` scheme and any iOS 17.0 or later simulator, then Run.
+
+   ```bash
+   open sales-ios.xcworkspace
+   ```
+
+Log in with the test account: username `tester`, password `password`.
+
+Without the middleware the app still runs. The detail screen lists every sale with its own currency
+and date, and says "USD unavailable" instead of a converted figure. That is deliberate, not a failure
+state.
 
 ## Architecture
 
 Horizontal layers inside vertical feature slices. Each screen is one Swift package with UI,
 Presentation, Feature and API targets. Shared modules carry technical concerns only. The app target
 is the composition root, the only place concrete types meet.
+
+The app talks to two services. The given backend answers `/login`, `/products` and `/sales`, and
+cannot change because other clients depend on it. `sales-middleware` is the second service and the
+reason this app is simple: it reads the backend's mixed currency pairs and answers with one
+direct-to-USD rate per currency, so no client ever chains a conversion itself.
 
 <p align="center">
   <img alt="Sales in USD architecture overview" src="docs/architecture-overview.svg" width="900">
@@ -292,12 +315,12 @@ showing it next to an error.
 list shows a sales count per product, which is only correct once every sale has been seen, so paging
 the sales request would show counts that creep upward and are wrong until the last page.
 
-**Dates follow the reader's language; English matches the brief exactly.** `SaleDateFormatter` reads
-its pattern and its am/pm symbols from the `.lproj` of the injected locale, so English reads
-`Jan 2, 2030 at 11 am` exactly as the brief writes it, and Vietnamese reads `2 thg 1, 2030 lúc 11 SA`.
+**Dates follow the reader's language.** `SaleDateFormatter` reads its pattern and its am/pm symbols
+from the `.lproj` of the injected locale, so English reads `Jan 2, 2030 at 11 am` and Vietnamese
+reads `2 thg 1, 2030 lúc 11 SA`. The locale is injected, so a test can pin it.
 
-**US dollars are written two ways on purpose.** The brief shows `US$407` in a row but `$107,587` in
-the header. No single locale produces both, so the row passes an explicit symbol while the header
+**US dollars are written two ways on purpose.** A row shows `US$407` while the header shows
+`$107,587`. No single locale produces both, so the row passes an explicit symbol while the header
 uses the currency's own. The row needs it: `$437` sitting beside `R$2,299` is ambiguous.
 `ProductDetailAcceptanceTests` pins both, through `usdInARow` and `usdInTheSummary`.
 
