@@ -1,0 +1,48 @@
+<svg viewBox="0 0 1060 430" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+<rect x="0" y="0" width="1060" height="430" fill="#0d1117"/>
+<style>.h{font-size:15px;font-weight:600;fill:#e6edf3}.n{font-size:13.5px;font-weight:600}.d{font-size:11.5px;fill:#8b949e}.b{font-size:12px;font-weight:600;fill:#e6edf3}</style>
+<defs><marker id="go" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L8,5 L0,10" fill="none" stroke="#8b949e" stroke-width="1.6"/></marker></defs>
+<text x="530" y="26" class="h" text-anchor="middle">Continuous integration: two workflows on every pull request to main</text>
+<text x="530" y="44" class="d" text-anchor="middle">CI-App gates the architecture before it builds anything. CI-Modules fans out one job per package.</text>
+<rect x="36" y="66" width="470" height="320" rx="10" fill="none" stroke="#30363d" stroke-width="1.6"/>
+<text x="52" y="90" class="n" text-anchor="start" fill="#e3b341">CI-App</text>
+<text x="52" y="108" class="d" text-anchor="start">one macOS runner, runs in order</text>
+<rect x="52" y="124" width="438" height="52" rx="8" fill="#161b22" stroke="#e3b341" stroke-width="1.5"/>
+<text x="64" y="145" class="n" text-anchor="start" fill="#e3b341" font-size="12.5">Guard the architecture</text>
+<text x="64" y="163" class="d" text-anchor="start">Scripts/architecture-guard.sh, six rules, fails on a crossed boundary</text>
+<path d="M271,178 L271,186" stroke="#8b949e" stroke-width="1.4" fill="none" marker-end="url(#go)"/>
+<rect x="52" y="188" width="438" height="52" rx="8" fill="#161b22" stroke="#8b949e" stroke-width="1.5"/>
+<text x="64" y="209" class="n" text-anchor="start" fill="#8b949e" font-size="12.5">Generate the project</text>
+<text x="64" y="227" class="d" text-anchor="start">brew install xcodegen, then xcodegen generate</text>
+<path d="M271,242 L271,250" stroke="#8b949e" stroke-width="1.4" fill="none" marker-end="url(#go)"/>
+<rect x="52" y="252" width="438" height="52" rx="8" fill="#161b22" stroke="#8b949e" stroke-width="1.5"/>
+<text x="64" y="273" class="n" text-anchor="start" fill="#8b949e" font-size="12.5">Pick a simulator</text>
+<text x="64" y="291" class="d" text-anchor="start">the newest available iPhone, chosen with simctl and jq</text>
+<path d="M271,306 L271,314" stroke="#8b949e" stroke-width="1.4" fill="none" marker-end="url(#go)"/>
+<rect x="52" y="316" width="438" height="52" rx="8" fill="#161b22" stroke="#58a6ff" stroke-width="1.5"/>
+<text x="64" y="337" class="n" text-anchor="start" fill="#58a6ff" font-size="12.5">Test the app</text>
+<text x="64" y="355" class="d" text-anchor="start">the SalesInUSD scheme, Thread Sanitizer on, 50 plus 5 tests</text>
+<rect x="554" y="66" width="470" height="320" rx="10" fill="none" stroke="#30363d" stroke-width="1.6"/>
+<text x="570" y="90" class="n" text-anchor="start" fill="#79c0ff">CI-Modules</text>
+<text x="570" y="108" class="d" text-anchor="start">a discover job builds a matrix, then one job per package</text>
+<rect x="570" y="124" width="438" height="44" rx="8" fill="#161b22" stroke="#79c0ff" stroke-width="1.5"/>
+<text x="582" y="145" class="n" text-anchor="start" fill="#79c0ff" font-size="12.5">discover</text>
+<text x="660" y="145" class="d" text-anchor="start">every Package.swift that declares a .testTarget</text>
+<path d="M789,170 L789,180" stroke="#8b949e" stroke-width="1.4" fill="none" marker-end="url(#go)"/>
+<rect x="570" y="190" width="210" height="32" rx="7" fill="#161b22" stroke="#58a6ff" stroke-width="1.4"/>
+<text x="582" y="211" class="n" text-anchor="start" fill="#58a6ff" font-size="11.5">test (Login)</text>
+<rect x="792" y="190" width="210" height="32" rx="7" fill="#161b22" stroke="#58a6ff" stroke-width="1.4"/>
+<text x="804" y="211" class="n" text-anchor="start" fill="#58a6ff" font-size="11.5">test (ProductList)</text>
+<rect x="570" y="232" width="210" height="32" rx="7" fill="#161b22" stroke="#58a6ff" stroke-width="1.4"/>
+<text x="582" y="253" class="n" text-anchor="start" fill="#58a6ff" font-size="11.5">test (ProductDetail)</text>
+<rect x="792" y="232" width="210" height="32" rx="7" fill="#161b22" stroke="#58a6ff" stroke-width="1.4"/>
+<text x="804" y="253" class="n" text-anchor="start" fill="#58a6ff" font-size="11.5">test (Auth)</text>
+<rect x="570" y="274" width="210" height="32" rx="7" fill="#161b22" stroke="#58a6ff" stroke-width="1.4"/>
+<text x="582" y="295" class="n" text-anchor="start" fill="#58a6ff" font-size="11.5">test (HTTPClient)</text>
+<rect x="792" y="274" width="210" height="32" rx="7" fill="#161b22" stroke="#58a6ff" stroke-width="1.4"/>
+<text x="804" y="295" class="n" text-anchor="start" fill="#58a6ff" font-size="11.5">test (SharedPresentation)</text>
+<rect x="570" y="316" width="438" height="32" rx="7" fill="#161b22" stroke="#58a6ff" stroke-width="1.4"/>
+<text x="582" y="337" class="n" text-anchor="start" fill="#58a6ff" font-size="11.5">test (TestSupport)</text>
+<text x="570" y="366" class="d" text-anchor="start">swift test on the Mac, warnings treated as errors.</text>
+<text x="570" y="382" class="d" text-anchor="start">The iOS snapshot targets compile out here.</text>
+</svg>

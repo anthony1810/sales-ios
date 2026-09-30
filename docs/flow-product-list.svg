@@ -1,0 +1,47 @@
+<svg viewBox="0 0 1060 744" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+<rect x="0" y="0" width="1060" height="744" fill="#0d1117"/>
+<style>.h{font-size:15px;font-weight:600;fill:#e6edf3}.n{font-size:13.5px;font-weight:600}.d{font-size:11.5px;fill:#8b949e}</style>
+<defs><marker id="go" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L8,5 L0,10" fill="none" stroke="#58a6ff" stroke-width="1.8"/></marker><marker id="back" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L8,5 L0,10" fill="none" stroke="#3fb950" stroke-width="1.8"/></marker></defs>
+<text x="530" y="28" class="h" text-anchor="middle">Product list: two requests at once, joined by one policy</text>
+<text x="530" y="48" class="d" text-anchor="middle">ProductListService starts both with async let. The policy keeps zero sale products and ignores a sale whose product is unknown.</text>
+<text x="348" y="76" class="d" text-anchor="end" fill="#58a6ff">the call going down</text>
+<text x="712" y="76" class="d" text-anchor="start" fill="#3fb950">the value coming back up</text>
+<rect x="350" y="92" width="360" height="56" rx="9" fill="#161b22" stroke="#f78166" stroke-width="1.6"/>
+<text x="530" y="115" class="n" text-anchor="middle" fill="#f78166">ProductListSUView</text>
+<text x="530" y="134" class="d" text-anchor="middle">SwiftUI, .task and .refreshable</text>
+<path d="M500,152 L500,194" stroke="#58a6ff" stroke-width="1.6" fill="none" marker-end="url(#go)"/>
+<path d="M560,194 L560,152" stroke="#3fb950" stroke-width="1.6" fill="none" marker-end="url(#back)"/>
+<text x="490" y="178" class="d" text-anchor="end" fill="#58a6ff">load()</text>
+<text x="570" y="178" class="d" text-anchor="start" fill="#3fb950">[ProductRow]</text>
+<rect x="350" y="200" width="360" height="56" rx="9" fill="#161b22" stroke="#d2a8ff" stroke-width="1.6"/>
+<text x="530" y="223" class="n" text-anchor="middle" fill="#d2a8ff">LoadableViewModel</text>
+<text x="530" y="242" class="d" text-anchor="middle">rows, isLoading, a generation counter</text>
+<path d="M500,260 L500,302" stroke="#58a6ff" stroke-width="1.6" fill="none" marker-end="url(#go)"/>
+<path d="M560,302 L560,260" stroke="#3fb950" stroke-width="1.6" fill="none" marker-end="url(#back)"/>
+<text x="490" y="286" class="d" text-anchor="end" fill="#58a6ff">loadSummaries()</text>
+<text x="570" y="286" class="d" text-anchor="start" fill="#3fb950">[ProductSummary]</text>
+<rect x="350" y="308" width="360" height="56" rx="9" fill="#161b22" stroke="#e3b341" stroke-width="1.6"/>
+<text x="530" y="331" class="n" text-anchor="middle" fill="#e3b341">ProductListService</text>
+<text x="530" y="350" class="d" text-anchor="middle">async let products, async let sales</text>
+<path d="M500,368 L500,410" stroke="#58a6ff" stroke-width="1.6" fill="none" marker-end="url(#go)"/>
+<path d="M560,410 L560,368" stroke="#3fb950" stroke-width="1.6" fill="none" marker-end="url(#back)"/>
+<text x="490" y="394" class="d" text-anchor="end" fill="#58a6ff">two requests at once</text>
+<text x="570" y="394" class="d" text-anchor="start" fill="#3fb950">[Product] and [Sale]</text>
+<rect x="350" y="416" width="360" height="56" rx="9" fill="#161b22" stroke="#3fb950" stroke-width="1.6"/>
+<text x="530" y="439" class="n" text-anchor="middle" fill="#3fb950">ProductListEndpoint</text>
+<text x="530" y="458" class="d" text-anchor="middle">GET /products and GET /sales</text>
+<path d="M500,476 L500,518" stroke="#58a6ff" stroke-width="1.6" fill="none" marker-end="url(#go)"/>
+<path d="M560,518 L560,476" stroke="#3fb950" stroke-width="1.6" fill="none" marker-end="url(#back)"/>
+<text x="490" y="502" class="d" text-anchor="end" fill="#58a6ff">map</text>
+<text x="570" y="502" class="d" text-anchor="start" fill="#3fb950">Data and 200</text>
+<rect x="350" y="524" width="360" height="56" rx="9" fill="#161b22" stroke="#58a6ff" stroke-width="1.6"/>
+<text x="530" y="547" class="n" text-anchor="middle" fill="#58a6ff">ProductSummaryPolicy</text>
+<text x="530" y="566" class="d" text-anchor="middle">counts per product, sorts by human name</text>
+<path d="M500,584 L500,626" stroke="#58a6ff" stroke-width="1.6" fill="none" marker-end="url(#go)"/>
+<path d="M560,626 L560,584" stroke="#3fb950" stroke-width="1.6" fill="none" marker-end="url(#back)"/>
+<text x="490" y="610" class="d" text-anchor="end" fill="#58a6ff">[ProductSummary]</text>
+<text x="570" y="610" class="d" text-anchor="start" fill="#3fb950">[ProductRow]</text>
+<rect x="350" y="632" width="360" height="56" rx="9" fill="#161b22" stroke="#d2a8ff" stroke-width="1.6"/>
+<text x="530" y="655" class="n" text-anchor="middle" fill="#d2a8ff">ProductRowMapper</text>
+<text x="530" y="674" class="d" text-anchor="middle">a count becomes a localized sentence</text>
+</svg>
