@@ -53,7 +53,7 @@ Start the middleware first, then the app.
    open sales-ios.xcworkspace
    ```
 
-Log in with the tester account from the challenge brief.
+Log in with the test account: username `tester`, password `password`.
 
 Without the middleware the app still runs. The detail screen lists every sale with its own currency
 and date, and says "USD unavailable" instead of a converted figure. That is deliberate, not a failure
@@ -315,12 +315,12 @@ showing it next to an error.
 list shows a sales count per product, which is only correct once every sale has been seen, so paging
 the sales request would show counts that creep upward and are wrong until the last page.
 
-**Dates follow the reader's language; English matches the brief exactly.** `SaleDateFormatter` reads
-its pattern and its am/pm symbols from the `.lproj` of the injected locale, so English reads
-`Jan 2, 2030 at 11 am` exactly as the brief writes it, and Vietnamese reads `2 thg 1, 2030 lúc 11 SA`.
+**Dates follow the reader's language.** `SaleDateFormatter` reads its pattern and its am/pm symbols
+from the `.lproj` of the injected locale, so English reads `Jan 2, 2030 at 11 am` and Vietnamese
+reads `2 thg 1, 2030 lúc 11 SA`. The locale is injected, so a test can pin it.
 
-**US dollars are written two ways on purpose.** The brief shows `US$407` in a row but `$107,587` in
-the header. No single locale produces both, so the row passes an explicit symbol while the header
+**US dollars are written two ways on purpose.** A row shows `US$407` while the header shows
+`$107,587`. No single locale produces both, so the row passes an explicit symbol while the header
 uses the currency's own. The row needs it: `$437` sitting beside `R$2,299` is ambiguous.
 `ProductDetailAcceptanceTests` pins both, through `usdInARow` and `usdInTheSummary`.
 

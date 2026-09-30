@@ -45,13 +45,14 @@ for file in $(sources Modules/Login/Sources Modules/ProductList/Sources Modules/
 done
 
 # 4. The backend host is named once, in ServiceURLs.
-hosts=$(grep -rln "ile-b2p4.essentialdeveloper.com" --include="*.swift" App Modules 2>/dev/null | grep -v "/.build/" || true)
-for file in $hosts; do
-    case "$file" in
-        App/Composition/ServiceURLs.swift) continue ;;
-        *) report "$file names the backend host, which belongs only in ServiceURLs" ;;
-    esac
-done
+service_urls="App/Composition/ServiceURLs.swift"
+host=$(grep -oE 'https://[A-Za-z0-9.-]+' "$service_urls" | head -1 | sed 's|https://||')
+if [ -n "$host" ]; then
+    for file in $(grep -rl "$host" --include="*.swift" App Modules 2>/dev/null | grep -v "/.build/" || true); do
+        [ "$file" = "$service_urls" ] && continue
+        report "$file names the backend host, which belongs only in ServiceURLs"
+    done
+fi
 
 # 5. A TestSupport module is linked by test bundles only.
 for file in $(sources Modules -path "*/Sources/*"); do

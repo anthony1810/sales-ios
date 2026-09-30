@@ -6,11 +6,11 @@
 <text x="530" y="42" class="d" text-anchor="middle">Dashed arrow: depends on. The app talks to two services. Only the middleware knows how to chain a currency to US dollars.</text>
 <rect x="36" y="56" width="470" height="84" rx="9" fill="#161b22" stroke="#6e7681" stroke-width="1.6"/>
 <text x="48" y="75" class="n" fill="#6e7681">The given backend</text>
-<text x="48" y="93" class="d">ile-b2p4.essentialdeveloper.com. POST /login, GET /products, GET /sales,</text>
-<text x="48" y="108" class="d">all three behind an Authorization header, plus its own GET /rates.</text>
-<text x="48" y="123" class="d">Fixed: other clients depend on it, so it cannot change for us.</text>
+<text x="48" y="93" class="d">POST /login, GET /products and GET /sales, all three behind an</text>
+<text x="48" y="108" class="d">Authorization header, plus its own GET /rates of mixed currency pairs.</text>
+<text x="48" y="123" class="d">Fixed: other clients depend on it, so it cannot change for this app.</text>
 <rect x="554" y="56" width="470" height="84" rx="9" fill="#161b22" stroke="#ffa657" stroke-width="1.6"/>
-<text x="566" y="75" class="n" fill="#ffa657">sales-middleware, this challenge's backend</text>
+<text x="566" y="75" class="n" fill="#ffa657">sales-middleware, the conversion service</text>
 <text x="566" y="93" class="d">A Swift server, localhost:8080. One endpoint, GET /rates.</text>
 <text x="566" y="108" class="d">Reads the backend's mixed pairs, derives the missing inverses and walks</text>
 <text x="566" y="123" class="d">outwards from USD, returning one direct-to-USD rate per currency.</text>
