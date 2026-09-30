@@ -24,6 +24,7 @@ public struct ProductDetailSUView: View {
                     Text(viewData.summaryText)
                         .font(.subheadline)
                         .textCase(nil)
+                        .accessibilityIdentifier("productDetail.summary")
                 }
             }
         }
@@ -41,6 +42,7 @@ public struct ProductDetailSUView: View {
                     .multilineTextAlignment(.center)
                     .foregroundStyle(.secondary)
                     .padding()
+                    .accessibilityIdentifier("productDetail.placeholder")
             }
         }
     }

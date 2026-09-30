@@ -11,11 +11,13 @@
 		07BB02CA3A8FEDA60F78EBC2 /* FailingTokenStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B32624AE213DF6F7882CE3B /* FailingTokenStore.swift */; };
 		0C4E81A73886DF4A6E10B08A /* SharedPresentation in Frameworks */ = {isa = PBXBuildFile; productRef = 6EA27F3199C4779061234471 /* SharedPresentation */; };
 		1A90646CB6AF49A2058C5841 /* ProductListUI in Frameworks */ = {isa = PBXBuildFile; productRef = D0295873E5C305EA059B1C1D /* ProductListUI */; };
+		1AF12A7CA0824F75D7A4F749 /* ProductDetailScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0023F4F04B9245ABA8E7C0F /* ProductDetailScreen.swift */; };
 		1CA2AE7843DC02D6B414D649 /* HTTPClientStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78AD2D88AF2B183818E6FB0F /* HTTPClientStub.swift */; };
 		1D8A0A810D44636ED81C7E1A /* ProductListTestSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 41E1AB38CE09F498346B8251 /* ProductListTestSupport */; };
 		2B3291C6C988C2E5B5C81410 /* RemoteAuthAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25075F2B5BC752F2784A89F /* RemoteAuthAPITests.swift */; };
 		2D418F44BB19A7F9D3CA7EBA /* LoginAPI in Frameworks */ = {isa = PBXBuildFile; productRef = BFF5C74E77122326F171FAD6 /* LoginAPI */; };
 		2F93925DF84F050746C6A761 /* Product+ProductDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F749E2F3FFB8CE49A9E07A /* Product+ProductDetail.swift */; };
+		307614B137366468FED697CC /* XCUIApplication+Launch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69DE56E01C74E44FA553568E /* XCUIApplication+Launch.swift */; };
 		38BD481216E5E94980CF1A11 /* HTTPClient in Frameworks */ = {isa = PBXBuildFile; productRef = 744A637AC3B20603A6873AAD /* HTTPClient */; };
 		3A05598F2DBB13F4839477D0 /* ServiceURLsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B69C463422465C6ADC5CD0 /* ServiceURLsTests.swift */; };
 		3BD3B3269036AFAFA23F988B /* AppCompositionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B191A61928F7C07A50EAEB21 /* AppCompositionTests.swift */; };
@@ -27,25 +29,29 @@
 		3FE866F59C35620A33F9305E /* LoginFeature in Frameworks */ = {isa = PBXBuildFile; productRef = B27F473D81BB65E1E0B0ACC1 /* LoginFeature */; };
 		404DC9AF620D7511D10B9C50 /* ProductDetailFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 7635FE9F0295B63ECC35C339 /* ProductDetailFeature */; };
 		5858096D71D833DA2B49E77B /* ProductListServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B823F508A32DFEE8E94A92F2 /* ProductListServiceTests.swift */; };
+		5B5D21D971A59F2D3CF9BC0D /* LoginUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD3D9D145C374284FFC3BD11 /* LoginUITests.swift */; };
+		5B97A81E39F465F25E16BAC9 /* ProductListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAD302D432175F4F5C5543E /* ProductListScreen.swift */; };
 		6637A555B5E3A0F0FEDB73AA /* ProductDetailService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9D75F496432E4B1B61B8F2 /* ProductDetailService.swift */; };
 		78E71F71579CEA7B5BEE4746 /* RealServicesEndToEndTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF88AA27FE42451124077A72 /* RealServicesEndToEndTests.swift */; };
 		792E073A58F4B407BB222964 /* ProductDetailPresentation in Frameworks */ = {isa = PBXBuildFile; productRef = F01940269499FCF30F0BDA50 /* ProductDetailPresentation */; };
+		80BDA8195D27B96F73B7AB13 /* ProductBrowsingUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E426B397914625B045580EA4 /* ProductBrowsingUITests.swift */; };
 		8467200036CE38ADA17B5EA9 /* RemoteAuthAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 067A698E393A5135D64B9B9C /* RemoteAuthAPI.swift */; };
 		8516EA2A360756F7BF43B7F3 /* TestSupport in Frameworks */ = {isa = PBXBuildFile; productRef = BC793C2A52CA3CF2C0CBC6AA /* TestSupport */; };
 		862A384D845EE2B9AF3D0948 /* ProductDetailTestSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 1D0DFDD95A798AC4F7BCC6B4 /* ProductDetailTestSupport */; };
 		96ACFF12EA3FE12DF671DDB7 /* ProductListAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 06901187180C71A3F26B53AD /* ProductListAPI */; };
+		982243C7B686AA1C0F3CFD15 /* TesterAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8020724BEF9219320763A40 /* TesterAccount.swift */; };
 		992D266C53B220B2E78D363C /* ProductTranslationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F1FF48E2B9AA4FAC09254E /* ProductTranslationTests.swift */; };
 		9E025655B778E4BBC7962B5E /* AppRouterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD4E4BDEDF31824193160E5 /* AppRouterTests.swift */; };
 		A3F1A6794B1FC59E08E210DD /* Auth in Frameworks */ = {isa = PBXBuildFile; productRef = 4F93829DA1E00F68A5DABCB1 /* Auth */; };
 		AA951B2786E0E9B9C6B24074 /* ProductDetailUI in Frameworks */ = {isa = PBXBuildFile; productRef = 962FA0F4DAED01E3302D34A2 /* ProductDetailUI */; };
 		B5496E0C263163431E8F13EC /* ProductDetailServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26334C9ACFEA8B47FE22D4AF /* ProductDetailServiceTests.swift */; };
+		BFA5F067D3994F008E5FF850 /* LoginScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB4E298D33A2D16BE7929B9 /* LoginScreen.swift */; };
 		C0CE092045E8644A406ECA74 /* HTTPClientLive in Frameworks */ = {isa = PBXBuildFile; productRef = 609140F36EE4A408513781C0 /* HTTPClientLive */; };
 		C739F5A5AF5592FB90E5B1BC /* ProductDetailAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 03BEBBA6893B7E499813412C /* ProductDetailAPI */; };
 		D4D809C0E03468BF4C0016B2 /* ServiceURLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED4CE2566E272E0F4A79780 /* ServiceURLs.swift */; };
 		D56DA83884FE6862106F9142 /* ProductListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F3E4A5F64028A210DE46D42 /* ProductListService.swift */; };
 		E063AFE43895F5CBC1D21E26 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2889A0057170DCC9E4A74EDD /* RootView.swift */; };
 		E49FCDB743D69C23D2032A31 /* LoginUI in Frameworks */ = {isa = PBXBuildFile; productRef = 93E59249ECDB2D3A22959330 /* LoginUI */; };
-		EBFFE988416B09737D403BE5 /* SignInAndBrowseUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102AB7D8DDCE2B8BA919EB04 /* SignInAndBrowseUITests.swift */; };
 		F7D2DE67C52ACCFAAE53173B /* AppRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E32B522C10F0D04A7760BE1 /* AppRouter.swift */; };
 /* End PBXBuildFile section */
 
@@ -71,7 +77,6 @@
 		067A698E393A5135D64B9B9C /* RemoteAuthAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteAuthAPI.swift; sourceTree = "<group>"; };
 		0E32B522C10F0D04A7760BE1 /* AppRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRouter.swift; sourceTree = "<group>"; };
 		0E657A2A1A06A7CF01EBCCC8 /* ProductDetail */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ProductDetail; path = Modules/ProductDetail; sourceTree = SOURCE_ROOT; };
-		102AB7D8DDCE2B8BA919EB04 /* SignInAndBrowseUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInAndBrowseUITests.swift; sourceTree = "<group>"; };
 		26334C9ACFEA8B47FE22D4AF /* ProductDetailServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailServiceTests.swift; sourceTree = "<group>"; };
 		27A290234BF1BD40519B1673 /* TestSupport */ = {isa = PBXFileReference; lastKnownFileType = folder; name = TestSupport; path = Modules/Shared/TestSupport; sourceTree = SOURCE_ROOT; };
 		2889A0057170DCC9E4A74EDD /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
@@ -80,24 +85,31 @@
 		55F1FF48E2B9AA4FAC09254E /* ProductTranslationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductTranslationTests.swift; sourceTree = "<group>"; };
 		620582DC7BEA3808E830B393 /* HTTPClient */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HTTPClient; path = Modules/Shared/HTTPClient; sourceTree = SOURCE_ROOT; };
 		65D34C31706238D1B050C9A2 /* SalesInUSDTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = SalesInUSDTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		69DE56E01C74E44FA553568E /* XCUIApplication+Launch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIApplication+Launch.swift"; sourceTree = "<group>"; };
 		6F3E4A5F64028A210DE46D42 /* ProductListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListService.swift; sourceTree = "<group>"; };
 		736406DA69B40A885D3B1E4D /* ProductList */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ProductList; path = Modules/ProductList; sourceTree = SOURCE_ROOT; };
 		747B2FB5E0484B60A7906696 /* AppComposition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppComposition.swift; sourceTree = "<group>"; };
 		78AD2D88AF2B183818E6FB0F /* HTTPClientStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientStub.swift; sourceTree = "<group>"; };
+		8CB4E298D33A2D16BE7929B9 /* LoginScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreen.swift; sourceTree = "<group>"; };
 		90F749E2F3FFB8CE49A9E07A /* Product+ProductDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Product+ProductDetail.swift"; sourceTree = "<group>"; };
 		9B32624AE213DF6F7882CE3B /* FailingTokenStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailingTokenStore.swift; sourceTree = "<group>"; };
 		9F9D75F496432E4B1B61B8F2 /* ProductDetailService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailService.swift; sourceTree = "<group>"; };
 		A89E42379D772AAFE608A259 /* SalesInUSD.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = SalesInUSD.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB73CECB9524A2E71215F72A /* SalesInUSDApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesInUSDApp.swift; sourceTree = "<group>"; };
+		AD3D9D145C374284FFC3BD11 /* LoginUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUITests.swift; sourceTree = "<group>"; };
 		B191A61928F7C07A50EAEB21 /* AppCompositionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCompositionTests.swift; sourceTree = "<group>"; };
 		B25075F2B5BC752F2784A89F /* RemoteAuthAPITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteAuthAPITests.swift; sourceTree = "<group>"; };
 		B823F508A32DFEE8E94A92F2 /* ProductListServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListServiceTests.swift; sourceTree = "<group>"; };
 		BB2AFCD3B90A928CF28EABC5 /* SharedPresentation */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SharedPresentation; path = Modules/Shared/SharedPresentation; sourceTree = SOURCE_ROOT; };
 		BF88AA27FE42451124077A72 /* RealServicesEndToEndTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealServicesEndToEndTests.swift; sourceTree = "<group>"; };
 		BFE0D12169D7044FAFD35525 /* LaunchArguments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchArguments.swift; sourceTree = "<group>"; };
+		C0023F4F04B9245ABA8E7C0F /* ProductDetailScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailScreen.swift; sourceTree = "<group>"; };
 		CADF86C29F9018E03FF6341B /* Login */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Login; path = Modules/Login; sourceTree = SOURCE_ROOT; };
 		CDD4E4BDEDF31824193160E5 /* AppRouterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRouterTests.swift; sourceTree = "<group>"; };
 		E1B69C463422465C6ADC5CD0 /* ServiceURLsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceURLsTests.swift; sourceTree = "<group>"; };
+		E426B397914625B045580EA4 /* ProductBrowsingUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductBrowsingUITests.swift; sourceTree = "<group>"; };
+		E8020724BEF9219320763A40 /* TesterAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TesterAccount.swift; sourceTree = "<group>"; };
+		FFAD302D432175F4F5C5543E /* ProductListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListScreen.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -203,6 +215,18 @@
 			path = Composition;
 			sourceTree = "<group>";
 		};
+		91FFD6F0E8FEE27D5B294F68 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				8CB4E298D33A2D16BE7929B9 /* LoginScreen.swift */,
+				C0023F4F04B9245ABA8E7C0F /* ProductDetailScreen.swift */,
+				FFAD302D432175F4F5C5543E /* ProductListScreen.swift */,
+				E8020724BEF9219320763A40 /* TesterAccount.swift */,
+				69DE56E01C74E44FA553568E /* XCUIApplication+Launch.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		AC3D3C0D93C743B7820A093E /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -225,7 +249,9 @@
 		D03D0B52C81F9A42C4519BFE /* AppUITests */ = {
 			isa = PBXGroup;
 			children = (
-				102AB7D8DDCE2B8BA919EB04 /* SignInAndBrowseUITests.swift */,
+				AD3D9D145C374284FFC3BD11 /* LoginUITests.swift */,
+				E426B397914625B045580EA4 /* ProductBrowsingUITests.swift */,
+				91FFD6F0E8FEE27D5B294F68 /* Helpers */,
 			);
 			path = AppUITests;
 			sourceTree = "<group>";
@@ -421,7 +447,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EBFFE988416B09737D403BE5 /* SignInAndBrowseUITests.swift in Sources */,
+				BFA5F067D3994F008E5FF850 /* LoginScreen.swift in Sources */,
+				5B5D21D971A59F2D3CF9BC0D /* LoginUITests.swift in Sources */,
+				80BDA8195D27B96F73B7AB13 /* ProductBrowsingUITests.swift in Sources */,
+				1AF12A7CA0824F75D7A4F749 /* ProductDetailScreen.swift in Sources */,
+				5B97A81E39F465F25E16BAC9 /* ProductListScreen.swift in Sources */,
+				982243C7B686AA1C0F3CFD15 /* TesterAccount.swift in Sources */,
+				307614B137366468FED697CC /* XCUIApplication+Launch.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

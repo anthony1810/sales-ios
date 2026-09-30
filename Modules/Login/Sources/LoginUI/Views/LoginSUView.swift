@@ -19,17 +19,21 @@ public struct LoginSUView: View {
                 .textFieldStyle(.roundedBorder)
                 .autocorrectionDisabled()
                 .loginFieldCapitalization()
+                .accessibilityIdentifier("login.username")
             SecureField(LoginViewModel.passwordPlaceholder, text: $viewModel.password)
                 .textFieldStyle(.roundedBorder)
+                .accessibilityIdentifier("login.password")
             if viewModel.showsSessionExpired {
                 Text(LoginViewModel.sessionExpiredMessage)
                     .font(.footnote)
                     .foregroundStyle(.secondary)
+                    .accessibilityIdentifier("login.sessionExpired")
             }
             if let message = viewModel.errorMessage {
                 Text(message)
                     .font(.footnote)
                     .foregroundStyle(.red)
+                    .accessibilityIdentifier("login.error")
             }
             Button {
                 Task { await viewModel.submit() }
@@ -44,6 +48,7 @@ public struct LoginSUView: View {
             }
             .buttonStyle(.borderedProminent)
             .disabled(!viewModel.canSubmit || viewModel.isLoading)
+            .accessibilityIdentifier("login.submit")
             Spacer()
         }
         .padding()
