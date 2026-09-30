@@ -45,7 +45,6 @@ final class AppComposition {
             tokenStore: tokenStore,
             onUnauthorized: { [weak self] in
                 Task { @MainActor in
-                    try? await self?.tokenStore.clear()
                     self?.sessionExpired()
                 }
             }
