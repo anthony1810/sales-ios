@@ -6,11 +6,15 @@ import ProductListUI
 import SwiftUI
 
 struct RootView: View {
-    @State private var composition = AppComposition()
+    private let composition: AppComposition
+    @Bindable private var router: AppRouter
+
+    init(composition: AppComposition) {
+        self.composition = composition
+        _router = Bindable(composition.router)
+    }
 
     var body: some View {
-        @Bindable var router = composition.router
-
         Group {
             switch router.screen {
             case .login:
