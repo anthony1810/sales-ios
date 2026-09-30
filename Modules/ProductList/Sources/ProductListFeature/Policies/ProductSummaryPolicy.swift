@@ -6,8 +6,7 @@ public enum ProductSummaryPolicy {
         for sale in sales {
             countsByProductID[sale.productID, default: 0] += 1
         }
-        return
-            products
+        return products
             .map {
                 ProductSummary(
                     id: $0.id,
