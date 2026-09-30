@@ -12,6 +12,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Guard the architecture
+        run: ./Scripts/architecture-guard.sh
+
       - name: Install XcodeGen
         run: brew install xcodegen
 
