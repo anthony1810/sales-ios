@@ -61,6 +61,36 @@
             assert(view, style: style, testName: "reloadFailure")
         }
 
+        @Test(arguments: [UIUserInterfaceStyle.light, .dark])
+        func loading_matchesTheReference(style: UIUserInterfaceStyle) async {
+            await withMainSerialExecutor {
+                let gate = Gate()
+                let viewModel = ProductDetailViewModel(
+                    loadDetail: {
+                        await gate.wait()
+                        return ProductDetail(product: makeProduct(), sales: [], total: nil)
+                    },
+                    mapper: ProductDetailViewMapper(
+                        dates: SaleDateFormatter(
+                            locale: Locale(identifier: "en_US"),
+                            timeZone: TimeZone(identifier: "UTC")!
+                        ),
+                        money: MoneyFormatter(locale: Locale(identifier: "en_US"))
+                    )
+                )
+                let view = AnyView(
+                    NavigationStack { ProductDetailSUView(viewModel: viewModel) }
+                        .transaction { $0.animation = nil }
+                )
+                let inFlight = Task { await viewModel.load() }
+                await Task.megaYield()
+
+                assert(view, style: style, testName: "loading")
+                gate.open()
+                await inFlight.value
+            }
+        }
+
         // MARK: - Helpers
 
         private var convertedDetail: ProductDetail {

@@ -42,11 +42,15 @@ public struct ProductListSUView: View {
     }
 
     @ViewBuilder private var placeholder: some View {
-        if viewModel.rows.isEmpty, viewModel.isLoading == false {
-            Text(viewModel.errorMessage ?? ProductListViewModel.emptyMessage)
-                .multilineTextAlignment(.center)
-                .foregroundStyle(.secondary)
-                .padding()
+        if viewModel.rows.isEmpty {
+            if viewModel.isLoading {
+                ProgressView()
+            } else {
+                Text(viewModel.errorMessage ?? ProductListViewModel.emptyMessage)
+                    .multilineTextAlignment(.center)
+                    .foregroundStyle(.secondary)
+                    .padding()
+            }
         }
     }
 }

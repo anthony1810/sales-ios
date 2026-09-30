@@ -33,11 +33,15 @@ public struct ProductDetailSUView: View {
     }
 
     @ViewBuilder private var placeholder: some View {
-        if viewModel.viewData == nil, viewModel.isLoading == false {
-            Text(viewModel.errorMessage ?? ProductDetailViewModel.emptyMessage)
-                .multilineTextAlignment(.center)
-                .foregroundStyle(.secondary)
-                .padding()
+        if viewModel.viewData == nil {
+            if viewModel.isLoading {
+                ProgressView()
+            } else {
+                Text(viewModel.errorMessage ?? ProductDetailViewModel.emptyMessage)
+                    .multilineTextAlignment(.center)
+                    .foregroundStyle(.secondary)
+                    .padding()
+            }
         }
     }
 }
