@@ -65,6 +65,11 @@ Horizontal layers inside vertical feature slices. Each screen is one Swift packa
 Presentation, Feature and API targets. Shared modules carry technical concerns only. The app target
 is the composition root, the only place concrete types meet.
 
+The app talks to two services. The given backend answers `/login`, `/products` and `/sales`, and
+cannot change because other clients depend on it. `sales-middleware` is the second service and the
+reason this app is simple: it reads the backend's mixed currency pairs and answers with one
+direct-to-USD rate per currency, so no client ever chains a conversion itself.
+
 <p align="center">
   <img alt="Sales in USD architecture overview" src="docs/architecture-overview.svg" width="900">
 </p>
