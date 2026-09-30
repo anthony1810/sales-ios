@@ -19,18 +19,11 @@ Horizontal layers inside vertical feature slices. Each screen is one Swift packa
 Presentation, Feature and API targets. Shared modules carry technical concerns only. The app target
 is the composition root, the only place concrete types meet.
 
-```
-App/
-  Composition/          the only place concrete types meet
-  Composition/Debug/    launch arguments, DEBUG only
-Modules/Login/          LoginFeature, LoginAPI, LoginPresentation, LoginUI
-Modules/ProductList/    the same four, plus ProductListTestSupport
-Modules/ProductDetail/  the same four, plus ProductDetailTestSupport
-Modules/Shared/         Auth, HTTPClient, SharedPresentation, TestSupport
-```
+<p align="center">
+  <img alt="Sales in USD architecture overview" src="docs/architecture-overview.svg" width="900">
+</p>
 
-Inside a vertical the arrows point one way. UI depends on Presentation, Presentation on Feature, and
-the API target implements the seam the Feature declares. `LoginUI` cannot build a `Credentials` and
+Inside a vertical the arrows point one way. `LoginUI` cannot build a `Credentials` and
 `LoginPresentation` cannot read an HTTP status code, because neither type is in scope.
 
 The architecture is enforced, not documented.
@@ -61,25 +54,30 @@ and nothing about the business is lost.
 
 ## Module map
 
-| Package | Targets | Tests |
+<p align="center">
+  <img alt="Module map" src="docs/module-map.svg" width="900">
+</p>
+
+| Document | Link | What it holds |
 |---|---|---|
-| [Login](Modules/Login) | LoginFeature, LoginAPI, LoginPresentation, LoginUI | 26 |
-| [ProductList](Modules/ProductList) | ProductListFeature, ProductListAPI, ProductListPresentation, ProductListUI, ProductListTestSupport | 26 |
-| [ProductDetail](Modules/ProductDetail) | ProductDetailFeature, ProductDetailAPI, ProductDetailPresentation, ProductDetailUI, ProductDetailTestSupport | 43 |
-| [Auth](Modules/Shared/Auth) | Auth | 12 |
-| [HTTPClient](Modules/Shared/HTTPClient) | HTTPClient, HTTPClientLive | 4 |
-| [SharedPresentation](Modules/Shared/SharedPresentation) | SharedPresentation | 13 |
-| [TestSupport](Modules/Shared/TestSupport) | TestSupport | 8 |
-| App target | SalesInUSD, SalesInUSDTests, SalesInUSDUITests | 55 |
+| BDD specs for signing in | [docs/specs/sign-in.md](docs/specs/sign-in.md) | How a customer signs in, returns to the app and is signed out again, as Given, When, Then scenarios. Each scenario is what one acceptance test proves, and the map at the end names that test. |
+| BDD specs for the product list | [docs/specs/product-list.md](docs/specs/product-list.md) | How a customer reads the list and its sales counts, including a sale with no matching product, offline and retry. |
+| BDD specs for a product's sales | [docs/specs/product-detail.md](docs/specs/product-detail.md) | How a customer reads one product's sales in US dollars, and what happens when the rates service is not running. |
+| The companion service | [sales-middleware](../sales-middleware) | The Swift server that turns eight mixed currency pairs into one direct-to-USD rate per currency. |
 
 ## Continuous integration
 
 Two workflows run on every pull request to `main` and every push to `main`.
 
-| Workflow | What it runs |
-|---|---|
-| `CI-App` | the architecture guard, then the `SalesInUSD` scheme with Thread Sanitizer enabled: unit, acceptance and UI tests |
-| `CI-Modules` | `swift test` for every package that has a test target, discovered by a matrix job, with warnings treated as errors |
+<p align="center">
+  <img alt="CI jobs" src="docs/ci.svg" width="900">
+</p>
+
+| Workflow | Job | What it runs |
+|---|---|---|
+| CI-App | `test` | the architecture guard, then the `SalesInUSD` scheme with Thread Sanitizer enabled: 50 unit and acceptance tests, 5 UI tests |
+| CI-Modules | `discover` | builds a matrix from every `Package.swift` that declares a `.testTarget` |
+| CI-Modules | `test (<package>)` | `swift test` for that package on the Mac, warnings treated as errors |
 
 `CI-Modules` runs on the Mac, so the iOS snapshot tests compile out there. `CI-App` runs the
 `SalesInUSD` scheme, whose test action holds only the app's own two bundles. Neither job runs the
@@ -87,7 +85,7 @@ snapshot tests today. See Known limits.
 
 ## Testing strategy
 
-187 tests in five kinds, each aimed at one risk.
+187 tests in five kinds, each aimed at one risk. The widest tier runs most often.
 
 - **Unit tests**: 141, proving one type at a time. Every policy, mapper, endpoint, formatter and view model.
 - **Snapshot tests**: 16 tests, 32 recorded references, proving every screen state renders as designed in light and dark.
@@ -95,9 +93,17 @@ snapshot tests today. See Known limits.
 - **UI automation tests**: 5, driving the shipped app on a simulator through named screens.
 - **End to end tests**: 4, proving the live services still answer in the shape the mappers expect.
 
+<p align="center">
+  <img alt="Test pyramid" src="docs/test-pyramid.svg" width="900">
+</p>
+
+There is no single coverage percentage here on purpose. The 16 snapshot tests do not run in either
+workflow, so any number measured today would report `ProductListUI` and `ProductDetailUI` at zero and
+understate the whole app. The number goes in once the snapshot gap in Known limits is closed.
+
 | Kind | Where | Runs by default |
 |---|---|---|
-| Unit | every `Modules/*/Tests` plus `AppTests/Composition` | yes |
+| Unit | every `Modules/*/Tests` plus [AppTests/Composition](AppTests/Composition) | yes |
 | Snapshot | `Modules/*/Tests/*UITests/Views` | no, see Known limits |
 | Acceptance | [AppTests/Acceptance](AppTests/Acceptance) | yes |
 | UI automation | [AppUITests](AppUITests) | one of five; four need `END_TO_END=1` |
@@ -108,11 +114,11 @@ snapshot tests today. See Known limits.
 Each one builds the real `AppComposition` with an `HTTPClientStub` that answers per URL, then drives
 it the way the app does and asserts what the customer ends up seeing.
 
-| Suite | Journeys |
-|---|---|
-| [SignInAcceptanceTests](AppTests/Acceptance/SignInAcceptanceTests.swift) | 9: signing in, keeping the token, a rejected password, signing in offline, returning with and without a stored session, and the session expiring |
-| [ProductListAcceptanceTests](AppTests/Acceptance/ProductListAcceptanceTests.swift) | 5: sales counts, human name order, a sale with no matching product, offline, and retrying after a failure |
-| [ProductDetailAcceptanceTests](AppTests/Acceptance/ProductDetailAcceptanceTests.swift) | 7: newest first, conversion, the total, the middleware being down, an unquoted currency, and a failed load |
+| Suite | Journeys | Specs |
+|---|---|---|
+| [SignInAcceptanceTests](AppTests/Acceptance/SignInAcceptanceTests.swift) | 9 | [sign-in.md](docs/specs/sign-in.md) |
+| [ProductListAcceptanceTests](AppTests/Acceptance/ProductListAcceptanceTests.swift) | 5 | [product-list.md](docs/specs/product-list.md) |
+| [ProductDetailAcceptanceTests](AppTests/Acceptance/ProductDetailAcceptanceTests.swift) | 7 | [product-detail.md](docs/specs/product-detail.md) |
 
 ### UI automation tests
 
@@ -159,18 +165,16 @@ them. Every state below is a recorded snapshot from `LoginSUViewSnapshotTests`.
 
 ### Data flow
 
-`LoginSUView` binds to `LoginViewModel`, which calls a plain function, not an object. The composition
-root passes `useCase.login`, so the view model cannot reach anything else on the use case.
+<p align="center">
+  <img alt="Login data flow" src="docs/flow-login.svg" width="900">
+</p>
 
-```
-LoginSUView -> LoginViewModel -> LoginUseCase -> AuthAPI (seam)
-                                              -> TokenStore (seam)
-RemoteAuthAPI -> LoginEndpoint -> HTTPClient -> LoginResponseMapper -> Token
-```
+### Additional behaviours
 
-`LoginResponseMapper` is the only file that knows the server calls the field `access_token`. A 401
-there throws a `LoginUseCase.Error.invalidCredentials`, carrying the server's own message, so the
-text under the password field is the server's and no layer rewrites it.
+1. **A second tap cannot start a second request.** The submit button is disabled while `isLoading`, and `submit()` guards on it as well. Proven in `LoginViewModelTests` with a held spy.
+2. **The server's message survives every layer.** A 401 in `LoginResponseMapper` throws a `LoginUseCase.Error.invalidCredentials`, and the use case's first `catch` lets it pass through untouched. Anything else becomes one generic message.
+3. **A failed save is a failed login.** `tokenStore.store(token)` sits outside the `do` block, so a Keychain failure reaches the caller rather than being rewritten as `Error.failed`.
+4. **Two languages**, English and Vietnamese, one catalog in `LoginPresentation`, with a test that fails on any missing key.
 
 ## Product list
 
@@ -200,20 +204,16 @@ Every product with how many times it sold, sorted by name, tappable through to t
 
 ### Data flow
 
-```
-ProductListSUView -> ProductListViewModel -> ProductListService -> /products
-                                                                -> /sales
-                                          -> ProductSummaryPolicy -> ProductRowMapper
-```
+<p align="center">
+  <img alt="Product list data flow" src="docs/flow-product-list.svg" width="900">
+</p>
 
-`ProductListService` starts both requests with `async let` and waits for both, so the screen waits
-once rather than twice. `ProductSummaryPolicy` then joins them: a product with no sales still
-appears, a sale whose product is unknown is ignored, and sorting uses `localizedStandardCompare`, so
-"Item 9" comes before "Item 10".
+### Additional behaviours
 
-`ProductListViewModel` is not a class anyone wrote. It is a typealias over the shared
-`LoadableViewModel`, which carries the loading flag, the error message and a generation counter that
-stops a slow response overwriting a fresh one.
+1. **A slow response cannot overwrite a fresh one.** `LoadableViewModel` numbers each load and drops any result that is no longer the newest. Pull to refresh during a load is therefore safe.
+2. **The whole row is tappable.** `.contentShape(Rectangle())` is there because of a real bug: the centre of the row landed in the `Spacer`, which does not respond to touches. Every unit test and every snapshot passed while the row did nothing.
+3. **Sorting is human, not byte order.** `localizedStandardCompare` puts "Item 9" before "Item 10".
+4. **The view model was never written.** `ProductListViewModel` is a typealias over the shared `LoadableViewModel`, configured with a loader, a mapper and a failure message.
 
 ## Product detail
 
@@ -246,21 +246,16 @@ One product's sales, newest first, each amount converted to US dollars, with a t
 
 ### Data flow
 
-```
-ProductDetailSUView -> ProductDetailViewModel -> ProductDetailService -> /sales (required)
-                                                                      -> /rates (optional)
-                                              -> ProductDetailPolicy -> ProductDetailViewMapper
-```
+<p align="center">
+  <img alt="A product's sales data flow" src="docs/flow-product-detail.svg" width="900">
+</p>
 
-The two requests are deliberately not symmetrical:
+### Additional behaviours
 
-```swift
-async let sales = loadSales()
-async let rates = try? await loadRates()
-```
-
-A sales failure throws and the screen shows an error. A rates failure becomes `nil` and the screen
-still lists every sale in its own currency. The backend is required. The middleware is optional.
+1. **One unconvertible sale means no total.** If a single sale is priced in a currency the rate table does not quote, the header shows "USD unavailable" rather than a sum that silently leaves that sale out.
+2. **The rates service is optional by construction.** `async let rates = try? await loadRates()` is the only reason the screen still works with the middleware stopped. The sales request uses `try await` and does fail the screen.
+3. **Dates come from the language, not the code.** `SaleDateFormatter` reads its pattern and its am/pm symbols from the `.lproj` of the injected locale.
+4. **Exact decimals all the way.** Amounts and rates arrive as JSON strings and are parsed with `Decimal(string:)`, so nothing passes through binary floating point.
 
 ## Decisions worth explaining
 
@@ -385,3 +380,7 @@ with value `1`, run the tests once, remove it, run them again, and commit the ne
 direct-to-USD rate per currency, using derived inverses and a breadth-first search from USD outwards.
 It exists so that no client app ever duplicates the conversion logic. That repository has its own
 README.
+
+## License
+
+MIT
