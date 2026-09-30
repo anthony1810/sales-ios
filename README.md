@@ -10,8 +10,36 @@ A SwiftUI app that signs you in, lists every product with how many times it sold
 read its sales newest first with each amount converted to US dollars. Three screens: Login, Product
 list and Product detail. iOS 17.0, Xcode 26, Swift 6 with complete strict concurrency.
 
-The app never converts a currency itself. It asks a companion service, `sales-middleware`, for one
+The app never converts a currency itself. It asks a companion service, [`sales-middleware`](https://github.com/anthony1810/sales-middleware), for one
 direct-to-USD rate per currency. That repository has its own README.
+
+## Run the app
+
+```bash
+git clone git@github.com:anthony1810/sales-ios.git
+cd sales-ios
+open sales-ios.xcworkspace
+```
+
+Select the `SalesInUSD` scheme and any iOS 17.0 or later simulator, then Run. Log in with the tester
+account from the challenge brief.
+
+The product list and the product detail work against the real backend with no further setup. The US
+dollar conversions need the middleware running:
+
+```bash
+cd ../sales-middleware && swift run --package-path Server      # serves http://localhost:8080
+```
+
+Without it the detail screen still lists every sale with its own currency and date, and says "USD
+unavailable" instead of a converted figure. That is deliberate, not a failure state.
+
+On a **physical device** `localhost` is the phone, not your Mac. Set an environment variable in the
+scheme, Product, Scheme, Edit Scheme, Run, Arguments:
+
+```
+RATES_BASE_URL = http://<your-mac-ip>:8080
+```
 
 ## Architecture
 
@@ -163,12 +191,6 @@ them. Every state below is a recorded snapshot from `LoginSUViewSnapshotTests`.
   </tr>
 </table>
 
-### Data flow
-
-<p align="center">
-  <img alt="Login data flow" src="docs/flow-login.svg" width="900">
-</p>
-
 ### Additional behaviours
 
 1. **A second tap cannot start a second request.** The submit button is disabled while `isLoading`, and `submit()` guards on it as well. Proven in `LoginViewModelTests` with a held spy.
@@ -201,12 +223,6 @@ Every product with how many times it sold, sorted by name, tappable through to t
     <td><a href="Modules/ProductList/Tests/ProductListUITests/Views/__Snapshots__/ProductListSUViewSnapshotTests/refreshFailure.dark.png"><img src="Modules/ProductList/Tests/ProductListUITests/Views/__Snapshots__/ProductListSUViewSnapshotTests/refreshFailure.dark.png" width="88" alt="Refresh failure, dark"></a></td>
   </tr>
 </table>
-
-### Data flow
-
-<p align="center">
-  <img alt="Product list data flow" src="docs/flow-product-list.svg" width="900">
-</p>
 
 ### Additional behaviours
 
@@ -243,12 +259,6 @@ One product's sales, newest first, each amount converted to US dollars, with a t
     <td><a href="Modules/ProductDetail/Tests/ProductDetailUITests/Views/__Snapshots__/ProductDetailSUViewSnapshotTests/usdUnavailable.dark.png"><img src="Modules/ProductDetail/Tests/ProductDetailUITests/Views/__Snapshots__/ProductDetailSUViewSnapshotTests/usdUnavailable.dark.png" width="88" alt="USD unavailable, dark"></a></td>
   </tr>
 </table>
-
-### Data flow
-
-<p align="center">
-  <img alt="A product's sales data flow" src="docs/flow-product-detail.svg" width="900">
-</p>
 
 ### Additional behaviours
 
@@ -304,34 +314,6 @@ ever appears, it should become an actor.
 - **`ProductListService.loadSales` and `ProductDetailService.loadSales` load all sales, not one product's.** The names read as though they were scoped. `loadAllSales` would say the truth.
 - **The 16 snapshot tests do not run in CI.** `CI-Modules` uses `swift test` on the Mac, where `canImport(UIKit)` is false and the suites compile out. `CI-App` runs the `SalesInUSD` scheme, whose test action holds only `SalesInUSDTests` and `SalesInUSDUITests`. The references are still committed and still checked in Xcode, but nothing enforces them on a pull request. The fix is a third CI job that runs the three UI targets on a simulator, which needs shared schemes with a test action, because the auto-created ones have none.
 - **The services live in the app target.** `ProductListService`, `ProductDetailService` and `RemoteAuthAPI` each import only their own vertical, so they could live inside the packages. Keeping them in the composition root is consistent across all three, but it does mean their tests sit in `AppTests` rather than the package suites.
-
-## Run the app
-
-```bash
-git clone git@github.com:anthony1810/sales-ios.git
-cd sales-ios
-open sales-ios.xcworkspace
-```
-
-Select the `SalesInUSD` scheme and any iOS 17.0 or later simulator, then Run. Log in with the tester
-account from the challenge brief.
-
-The product list and the product detail work against the real backend with no further setup. The US
-dollar conversions need the middleware running:
-
-```bash
-cd ../sales-middleware && swift run --package-path Server      # serves http://localhost:8080
-```
-
-Without it the detail screen still lists every sale with its own currency and date, and says "USD
-unavailable" instead of a converted figure. That is deliberate, not a failure state.
-
-On a **physical device** `localhost` is the phone, not your Mac. Set an environment variable in the
-scheme, Product, Scheme, Edit Scheme, Run, Arguments:
-
-```
-RATES_BASE_URL = http://<your-mac-ip>:8080
-```
 
 ## Run the tests
 
