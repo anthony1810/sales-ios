@@ -1,0 +1,30 @@
+<svg viewBox="0 0 1060 560" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+<rect x="0" y="0" width="1060" height="560" fill="#0d1117"/>
+<style>.h{font-size:15px;font-weight:600;fill:#e6edf3}.n{font-size:13.5px;font-weight:600}.d{font-size:11.5px;fill:#8b949e}.t{font-size:12px;fill:#e6edf3}</style>
+<defs><marker id="dep" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L8,5 L0,10" fill="none" stroke="#8b949e" stroke-width="1.6"/></marker></defs>
+<text x="330" y="22" class="d" text-anchor="middle">187 tests in five kinds, widest tier runs most often</text>
+<polygon points="330,34 362,126 298,126" fill="#161b22" stroke="#e3b341" stroke-width="1.6" stroke-linejoin="round"/>
+<text x="330" y="118" class="n" text-anchor="middle" fill="#e6edf3">4</text>
+<line x1="366" y1="91.03999999999999" x2="382" y2="91.03999999999999" stroke="#30363d" stroke-width="1.2"/>
+<text x="390" y="95.03999999999999" class="d"><tspan fill="#e3b341" font-weight="600" font-size="13">End to End Tests</tspan> · AppTests/EndToEnd · the live backend and the local middleware · opt in</text>
+<polygon points="298,132 362,132 394,224 266,224" fill="#161b22" stroke="#f78166" stroke-width="1.6" stroke-linejoin="round"/>
+<text x="330" y="172" class="t" text-anchor="middle" fill="#f78166" font-size="15" font-weight="600">UI Automation Tests</text>
+<text x="330" y="194" class="n" text-anchor="middle" fill="#e6edf3">5</text>
+<line x1="398" y1="189.04" x2="414" y2="189.04" stroke="#30363d" stroke-width="1.2"/>
+<text x="422" y="193.04" class="d">AppUITests · Login 2, Product browsing 3 · launch arguments, one runs offline</text>
+<polygon points="266,230 394,230 426,322 234,322" fill="#161b22" stroke="#d2a8ff" stroke-width="1.6" stroke-linejoin="round"/>
+<text x="330" y="270" class="t" text-anchor="middle" fill="#d2a8ff" font-size="15" font-weight="600">Snapshot Tests</text>
+<text x="330" y="292" class="n" text-anchor="middle" fill="#e6edf3">16 · 32 references</text>
+<line x1="430" y1="287.04" x2="446" y2="287.04" stroke="#30363d" stroke-width="1.2"/>
+<text x="454" y="291.04" class="d">LoginUI 5, ProductListUI 5, ProductDetailUI 6 · light and dark, iPhone 17</text>
+<polygon points="234,328 426,328 458,420 202,420" fill="#161b22" stroke="#58a6ff" stroke-width="1.6" stroke-linejoin="round"/>
+<text x="330" y="368" class="t" text-anchor="middle" fill="#58a6ff" font-size="15" font-weight="600">Acceptance Tests</text>
+<text x="330" y="390" class="n" text-anchor="middle" fill="#e6edf3">21</text>
+<line x1="462" y1="385.04" x2="478" y2="385.04" stroke="#30363d" stroke-width="1.2"/>
+<text x="486" y="389.04" class="d">AppTests/Acceptance · Sign in 9, Product list 5, Product detail 7 · real composition</text>
+<polygon points="202,426 458,426 490,518 170,518" fill="#161b22" stroke="#3fb950" stroke-width="1.6" stroke-linejoin="round"/>
+<text x="330" y="466" class="t" text-anchor="middle" fill="#3fb950" font-size="15" font-weight="600">Unit Tests</text>
+<text x="330" y="488" class="n" text-anchor="middle" fill="#e6edf3">141</text>
+<line x1="494" y1="483.04" x2="510" y2="483.04" stroke="#30363d" stroke-width="1.2"/>
+<text x="518" y="487.04" class="d">Modules/*/Tests and AppTests/Composition</text>
+</svg>

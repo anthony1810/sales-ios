@@ -1,0 +1,95 @@
+<svg viewBox="0 0 1060 706" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+<rect x="0" y="0" width="1060" height="706" fill="#0d1117"/>
+<style>.h{font-size:15px;font-weight:600;fill:#e6edf3}.n{font-size:13.5px;font-weight:600}.d{font-size:11.5px;fill:#8b949e}.t{font-size:12px;fill:#e6edf3}</style>
+<defs><marker id="dep" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L8,5 L0,10" fill="none" stroke="#8b949e" stroke-width="1.6"/></marker></defs>
+<text x="530" y="24" class="h" text-anchor="middle">Sales in USD, iOS 17.0, Swift 6 strict concurrency, one workspace, three screens</text>
+<text x="530" y="42" class="d" text-anchor="middle">Dashed arrow: depends on. UI on Presentation, Presentation on Feature, the API target on Feature, every column on the root above.</text>
+<rect x="16" y="52" width="1028" height="638" rx="12" fill="#0d1117" stroke="#30363d" stroke-width="1.5"/>
+<rect x="36" y="64" width="988" height="66" rx="9" fill="#161b22" stroke="#e3b341" stroke-width="1.6"/>
+<text x="48" y="83" class="n" fill="#e3b341">App: Composition Root</text>
+<text x="48" y="101" class="d">The only place concretes meet: endpoints to the HTTP client to mappers, the authorizing decorator, the Keychain store, two services and the view models.</text>
+<text x="48" y="116" class="d">AppRouter owns the screen and the navigation path. Product+ProductDetail translates one vertical's Product into the other's. Owns the only service URLs.</text>
+<rect x="36" y="150" width="300" height="386" rx="9" fill="none" stroke="#30363d" stroke-width="1.6" stroke-dasharray="5 4"/>
+<text x="48" y="172" class="n" text-anchor="start" fill="#e6edf3">Login (one package)</text>
+<rect x="48" y="184" width="276" height="62" rx="9" fill="#161b22" stroke="#f78166" stroke-width="1.6"/>
+<text x="60" y="203" class="n" fill="#f78166">LoginUI</text>
+<text x="60" y="221" class="d">SwiftUI. The login form, its</text>
+<text x="60" y="236" class="d">loading, error and expiry states.</text>
+<rect x="48" y="272" width="276" height="62" rx="9" fill="#161b22" stroke="#d2a8ff" stroke-width="1.6"/>
+<text x="60" y="291" class="n" fill="#d2a8ff">LoginPresentation</text>
+<text x="60" y="309" class="d">@Observable view model, localized</text>
+<text x="60" y="324" class="d">strings. No networking in scope.</text>
+<rect x="48" y="360" width="276" height="62" rx="9" fill="#161b22" stroke="#58a6ff" stroke-width="1.6"/>
+<text x="60" y="379" class="n" fill="#58a6ff">LoginFeature</text>
+<text x="60" y="397" class="d">Credentials, the AuthAPI seam,</text>
+<text x="60" y="412" class="d">LoginUseCase. Foundation only.</text>
+<rect x="48" y="448" width="276" height="62" rx="9" fill="#161b22" stroke="#3fb950" stroke-width="1.6"/>
+<text x="60" y="467" class="n" fill="#3fb950">LoginAPI</text>
+<text x="60" y="485" class="d">Endpoint and mapper. Knows</text>
+<text x="60" y="500" class="d">access_token, never the client.</text>
+<path d="M186,132 L186,146" stroke="#8b949e" stroke-width="1.4" stroke-dasharray="5 4" fill="none" marker-end="url(#dep)"/>
+<path d="M186,248 L186,270" stroke="#8b949e" stroke-width="1.4" stroke-dasharray="5 4" fill="none" marker-end="url(#dep)"/>
+<path d="M186,336 L186,358" stroke="#8b949e" stroke-width="1.4" stroke-dasharray="5 4" fill="none" marker-end="url(#dep)"/>
+<path d="M186,424 L186,446" stroke="#8b949e" stroke-width="1.4" stroke-dasharray="5 4" fill="none" marker-end="url(#dep)"/>
+<rect x="380" y="150" width="300" height="386" rx="9" fill="none" stroke="#30363d" stroke-width="1.6" stroke-dasharray="5 4"/>
+<text x="392" y="172" class="n" text-anchor="start" fill="#e6edf3">ProductList (one package)</text>
+<rect x="392" y="184" width="276" height="62" rx="9" fill="#161b22" stroke="#f78166" stroke-width="1.6"/>
+<text x="404" y="203" class="n" fill="#f78166">ProductListUI</text>
+<text x="404" y="221" class="d">SwiftUI. The list, its rows,</text>
+<text x="404" y="236" class="d">loading, empty and error states.</text>
+<rect x="392" y="272" width="276" height="62" rx="9" fill="#161b22" stroke="#d2a8ff" stroke-width="1.6"/>
+<text x="404" y="291" class="n" fill="#d2a8ff">ProductListPresentation</text>
+<text x="404" y="309" class="d">Row mapper and a typealias over</text>
+<text x="404" y="324" class="d">the shared LoadableViewModel.</text>
+<rect x="392" y="360" width="276" height="62" rx="9" fill="#161b22" stroke="#58a6ff" stroke-width="1.6"/>
+<text x="404" y="379" class="n" fill="#58a6ff">ProductListFeature</text>
+<text x="404" y="397" class="d">Product, Sale, ProductSummary,</text>
+<text x="404" y="412" class="d">ProductSummaryPolicy. No imports.</text>
+<rect x="392" y="448" width="276" height="62" rx="9" fill="#161b22" stroke="#3fb950" stroke-width="1.6"/>
+<text x="404" y="467" class="n" fill="#3fb950">ProductListAPI</text>
+<text x="404" y="485" class="d">Two endpoints, two mappers.</text>
+<text x="404" y="500" class="d">Keeps one field from a sale.</text>
+<path d="M530,132 L530,146" stroke="#8b949e" stroke-width="1.4" stroke-dasharray="5 4" fill="none" marker-end="url(#dep)"/>
+<path d="M530,248 L530,270" stroke="#8b949e" stroke-width="1.4" stroke-dasharray="5 4" fill="none" marker-end="url(#dep)"/>
+<path d="M530,336 L530,358" stroke="#8b949e" stroke-width="1.4" stroke-dasharray="5 4" fill="none" marker-end="url(#dep)"/>
+<path d="M530,424 L530,446" stroke="#8b949e" stroke-width="1.4" stroke-dasharray="5 4" fill="none" marker-end="url(#dep)"/>
+<rect x="724" y="150" width="300" height="386" rx="9" fill="none" stroke="#30363d" stroke-width="1.6" stroke-dasharray="5 4"/>
+<text x="736" y="172" class="n" text-anchor="start" fill="#e6edf3">ProductDetail (one package)</text>
+<rect x="736" y="184" width="276" height="62" rx="9" fill="#161b22" stroke="#f78166" stroke-width="1.6"/>
+<text x="748" y="203" class="n" fill="#f78166">ProductDetailUI</text>
+<text x="748" y="221" class="d">SwiftUI. The sales list, the</text>
+<text x="748" y="236" class="d">summary header, every state.</text>
+<rect x="736" y="272" width="276" height="62" rx="9" fill="#161b22" stroke="#d2a8ff" stroke-width="1.6"/>
+<text x="748" y="291" class="n" fill="#d2a8ff">ProductDetailPresentation</text>
+<text x="748" y="309" class="d">View mapper, money and date</text>
+<text x="748" y="324" class="d">formatters, the view model.</text>
+<rect x="736" y="360" width="276" height="62" rx="9" fill="#161b22" stroke="#58a6ff" stroke-width="1.6"/>
+<text x="748" y="379" class="n" fill="#58a6ff">ProductDetailFeature</text>
+<text x="748" y="397" class="d">Money, RateTable, DetailedSale,</text>
+<text x="748" y="412" class="d">ProductDetailPolicy. No imports.</text>
+<rect x="736" y="448" width="276" height="62" rx="9" fill="#161b22" stroke="#3fb950" stroke-width="1.6"/>
+<text x="748" y="467" class="n" fill="#3fb950">ProductDetailAPI</text>
+<text x="748" y="485" class="d">Sales and rates endpoints.</text>
+<text x="748" y="500" class="d">Decimal from strings, never Double.</text>
+<path d="M874,132 L874,146" stroke="#8b949e" stroke-width="1.4" stroke-dasharray="5 4" fill="none" marker-end="url(#dep)"/>
+<path d="M874,248 L874,270" stroke="#8b949e" stroke-width="1.4" stroke-dasharray="5 4" fill="none" marker-end="url(#dep)"/>
+<path d="M874,336 L874,358" stroke="#8b949e" stroke-width="1.4" stroke-dasharray="5 4" fill="none" marker-end="url(#dep)"/>
+<path d="M874,424 L874,446" stroke="#8b949e" stroke-width="1.4" stroke-dasharray="5 4" fill="none" marker-end="url(#dep)"/>
+<text x="36" y="572" class="n" text-anchor="start" fill="#79c0ff">Shared horizontals, technical only, no feature knows another exists</text>
+<rect x="36" y="584" width="232" height="62" rx="9" fill="#161b22" stroke="#79c0ff" stroke-width="1.6"/>
+<text x="48" y="603" class="n" fill="#79c0ff">Auth</text>
+<text x="48" y="621" class="d">Token, the TokenStore seam, the</text>
+<text x="48" y="636" class="d">Keychain store and the decorator.</text>
+<rect x="288" y="584" width="232" height="62" rx="9" fill="#161b22" stroke="#79c0ff" stroke-width="1.6"/>
+<text x="300" y="603" class="n" fill="#79c0ff">HTTPClient</text>
+<text x="300" y="621" class="d">The one method seam plus its</text>
+<text x="300" y="636" class="d">URLSession implementation.</text>
+<rect x="540" y="584" width="232" height="62" rx="9" fill="#161b22" stroke="#79c0ff" stroke-width="1.6"/>
+<text x="552" y="603" class="n" fill="#79c0ff">SharedPresentation</text>
+<text x="552" y="621" class="d">LoadableViewModel, the money</text>
+<text x="552" y="636" class="d">formatter, Bundle.localized.</text>
+<rect x="792" y="584" width="232" height="62" rx="9" fill="#161b22" stroke="#79c0ff" stroke-width="1.6"/>
+<text x="804" y="603" class="n" fill="#79c0ff">TestSupport</text>
+<text x="804" y="621" class="d">Spies, stubs, leak tracking.</text>
+<text x="804" y="636" class="d">Linked by test bundles only.</text>
+</svg>
